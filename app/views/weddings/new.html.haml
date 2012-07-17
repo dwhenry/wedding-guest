@@ -1,0 +1,25 @@
+%h1 Setup Your Wedding
+
+= form_for @wedding do |f|
+  .label
+    = f.label :bride
+  .value
+    = f.text_field :bride
+
+  .label
+    = f.label :groom
+  .value
+    = f.text_field :groom
+
+  .label
+    = f.label :on
+  .value
+    = f.text_field :on
+
+  .label
+    = f.label :on
+  .value
+    = f.text_field :on
+
+  .button
+    = f.submit :create
