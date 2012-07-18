@@ -7,9 +7,14 @@
 
 .image
   .label
+    .float_right
+      = link_to image_tag('/rotate_anticlockwise.png'), rotate_image_wedding_path(@wedding, :angle => -90)
+      = link_to image_tag('/rotate_clockwise.png'), rotate_image_wedding_path(@wedding, :angle => 90)
     Image
   .value
-    = image_tag(@wedding.image_url) if @wedding.image?
+    =# image_tag(@wedding.image_url) if @wedding.image?
+    - if @wedding.image?
+      .tag{:style => "background-image: url(#{@wedding.image_url})"}
 
 .label
   Name

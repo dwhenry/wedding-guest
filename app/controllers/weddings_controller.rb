@@ -28,7 +28,7 @@ class WeddingsController < ApplicationController
     @wedding = Wedding.find(params[:id])
   end
 
-  def create
+  def update
     @wedding = Wedding.find(params[:id])
 
     begin
@@ -46,5 +46,12 @@ class WeddingsController < ApplicationController
 
   def delete_all
     Wedding.delete_all if params[:key] = 'defo'
+  end
+
+  def rotate_image
+    wedding = Wedding.find(params[:id])
+    wedding.image.rotate!(params[:angle].to_i)
+    wedding.save
+    redirect_to wedding
   end
 end

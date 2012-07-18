@@ -28,6 +28,20 @@ class BrideGroomUploader < CarrierWave::Uploader::Base
   # Process files as they are uploaded:
   # process :scale => [200, 300]
   process :resize_to_fit => [300, 300]
+  process :auto_orient
+
+  def auto_orient
+    manipulate! do |img|
+      img = img.auto_orient
+    end
+  end
+
+  def rotate!(angle)
+    manipulate! do |img|
+      img.rotate!(angle)
+      img
+    end
+  end
   #
   # def scale(width, height)
   #   # do something

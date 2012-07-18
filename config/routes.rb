@@ -1,5 +1,8 @@
 WeddingGuest::Application.routes.draw do
   resources :weddings do
+    member do
+      get 'rotate_image'
+    end
     collection do
       get 'delete_all'
     end
