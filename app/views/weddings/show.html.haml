@@ -1,11 +1,20 @@
 - content_for :head do
   Your Wedding
+- content_for :buttons do
+  = link_to :edit, edit_wedding_path(@wedding)
+  |
+  = link_to :index, weddings_path
 
 .image
   .label
     Image
   .value
     = image_tag(@wedding.image_url) if @wedding.image?
+
+.label
+  Name
+.value
+  = @wedding.name
 
 .label
   Bride
@@ -21,7 +30,3 @@
   On
 .value
   = @wedding.on
-
-
-.button
-  = link_to :edit, edit_wedding_path(@wedding)

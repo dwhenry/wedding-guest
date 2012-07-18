@@ -1,6 +1,9 @@
 - content_for :head do
   Weddings
 
+- content_for :buttons do
+  = link_to :new, new_wedding_path
+
 %table
   %thead
     %tr

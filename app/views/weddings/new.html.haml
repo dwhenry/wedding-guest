@@ -1,6 +1,9 @@
 - content_for :head do
   Setup Your Wedding
 
+- content_for :buttons do
+  = link_to :index, weddings_path
+
 = form_for @wedding do |f|
   = render :partial => 'fields', :locals => {:f => f}
 

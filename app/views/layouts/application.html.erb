@@ -9,7 +9,10 @@
 <body>
   <div id="screen">
     <div id='head'>
-      <h1>Setup Your Wedding</h1>
+      <div id="buttons">
+        <%= yield :buttons %>
+      </div>
+      <h1><%= yield :head %></h1>
     </div>
     <div id='body'>
       <%= yield %>
