@@ -11,15 +11,15 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120717210734) do
+ActiveRecord::Schema.define(:version => 20120718122533) do
 
   create_table "weddings", :force => true do |t|
     t.string   "bride"
     t.string   "groom"
     t.date     "on"
-    t.binary   "image"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "image"
   end
 
 end

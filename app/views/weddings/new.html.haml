@@ -17,9 +17,11 @@
     = f.text_field :on
 
   .label
-    = f.label :on
+    = f.label :image
   .value
-    = f.text_field :on
+    = f.file_field :image
+    = f.hidden_field :image_cache
+    = image_tag(@wedding.image_url) if @wedding.image?
 
   .button
     = f.submit :create

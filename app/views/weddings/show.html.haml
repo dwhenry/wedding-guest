@@ -15,5 +15,10 @@
 .value
   = @wedding.on
 
+.label
+  Image
+.value
+  = image_tag(@wedding.image_url) if @wedding.image?
+
 .button
   = link_to :edit

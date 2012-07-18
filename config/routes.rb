@@ -1,5 +1,12 @@
 WeddingGuest::Application.routes.draw do
   resources :weddings, :only => [:new, :create, :show, :index]
+
+  resources :resources, :only => [:show] do
+    member do
+      get 'image_cache', :requirements => { :cache_id => /\d{8}-\d{4}-\d{5}-\d{4}/, :filename => /[a-zA-Z0-9_ ]+\.(jpg|jpeg){1}/i }
+    end
+  end
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
