@@ -51,6 +51,8 @@ class WeddingsController < ApplicationController
   def rotate_image
     wedding = Wedding.find(params[:id])
     wedding.image.rotate!(params[:angle].to_i)
+    wedding.image.thumb.cache!(wedding.image.file)
+    wedding.image.thumb.store!
     wedding.save
     redirect_to wedding
   end
