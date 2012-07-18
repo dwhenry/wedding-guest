@@ -1,5 +1,9 @@
 WeddingGuest::Application.routes.draw do
-  resources :weddings, :only => [:new, :create, :show, :index]
+  resources :weddings do
+    collection do
+      get 'delete_all'
+    end
+  end
 
   resources :resources, :only => [:show] do
     member do

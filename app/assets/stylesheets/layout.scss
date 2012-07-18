@@ -1,8 +1,55 @@
 .label {
   color: #777;
-  font-size: 14px;
+  font-size: 16px;
 }
 
 .value {
   font-size: 16px;
+  margin: 5px 0 10px 0;
+}
+
+body {
+  background: pink;
+  margin: 0;
+}
+#screen {
+  width: 1000px;
+  margin: auto;
+  background: white;
+  // padding: 20px 40px;
+  padding: 10px;
+  overflow: hidden;
+
+}
+
+h1 {
+  border-bottom: #CCC 2px solid;
+  padding: 5px 0 20px 15px;
+  margin: 0 0 20px 0;
+}
+
+#body {
+  font-family: Arial, Helvetica, sans-serif;
+  padding: 5px 15px;
+}
+
+table, tr, td, th {
+  border: 1px solid #999;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  td, th {
+    padding: 5px;
+  }
+  thead {
+    background: #EEE;
+    font-weight: bold;
+  }
+}
+
+.image {
+  float: right;
+  position: relative;
 }

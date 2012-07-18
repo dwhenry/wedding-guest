@@ -1,0 +1,21 @@
+- content_for :head do
+  Weddings
+
+%table
+  %thead
+    %tr
+      %th Name
+      %th Bride
+      %th Groom
+      %th Date
+      %th Image
+
+  %tbody
+    - @weddings.each do |wedding|
+      %tr
+        %td= wedding.name
+        %td= wedding.bride
+        %td= wedding.groom
+        %td= wedding.on
+        %td= image_tag(wedding.image.thumb) if wedding.image?
+

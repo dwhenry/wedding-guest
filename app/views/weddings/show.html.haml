@@ -1,4 +1,11 @@
-%h1 Setup Your Wedding
+- content_for :head do
+  Your Wedding
+
+.image
+  .label
+    Image
+  .value
+    = image_tag(@wedding.image_url) if @wedding.image?
 
 .label
   Bride
@@ -15,10 +22,6 @@
 .value
   = @wedding.on
 
-.label
-  Image
-.value
-  = image_tag(@wedding.image_url) if @wedding.image?
 
 .button
-  = link_to :edit
+  = link_to :edit, edit_wedding_path(@wedding)

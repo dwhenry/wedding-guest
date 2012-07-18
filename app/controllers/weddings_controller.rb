@@ -2,6 +2,11 @@ class WeddingsController < ApplicationController
 
   def index
     @weddings = Wedding.all
+
+    respond_to do |format|
+      format.html # show.html.erb
+      format.json  { render :json => @weddings.map(&:details) }
+    end
   end
 
   def new
@@ -19,7 +24,27 @@ class WeddingsController < ApplicationController
     end
   end
 
+  def edit
+    @wedding = Wedding.find(params[:id])
+  end
+
+  def create
+    @wedding = Wedding.find(params[:id])
+
+    begin
+      @wedding.update_attributes!(params[:wedding])
+      redirect_to wedding_path(@wedding)
+    rescue => e
+      debugger
+      render :edit
+    end
+  end
+
   def show
     @wedding = Wedding.find(params[:id])
+  end
+
+  def delete_all
+    Wedding.delete_all if params[:key] = 'defo'
   end
 end

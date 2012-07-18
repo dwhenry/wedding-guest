@@ -1,0 +1,29 @@
+.image
+  .label
+    = f.label :image
+  .value
+    = image_tag(@wedding.image_url) if @wedding.image?
+  .value
+    = f.file_field :image
+    = f.hidden_field :image_cache
+
+.label
+  = f.label :name
+.value
+  = f.text_field :name
+
+.label
+  = f.label :bride
+.value
+  = f.text_field :bride
+
+.label
+  = f.label :groom
+.value
+  = f.text_field :groom
+
+.label
+  = f.label :on
+.value
+  = f.text_field :on
+

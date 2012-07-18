@@ -1,8 +1,8 @@
 - content_for :head do
-  Setup Your Wedding
+  Edit Your Wedding
 
 = form_for @wedding do |f|
   = render :partial => 'fields', :locals => {:f => f}
 
   .button
-    = f.submit :create
+    = f.submit :update
