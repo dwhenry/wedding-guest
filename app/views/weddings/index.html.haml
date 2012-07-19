@@ -15,10 +15,10 @@
 
   %tbody
     - @weddings.each do |wedding|
-      %tr
+      %tr{:'data-url' => wedding_path(wedding)}
         %td= wedding.name
         %td= wedding.bride
         %td= wedding.groom
-        %td= wedding.on
-        %td= image_tag(wedding.image.thumb) if wedding.image?
+        %td= wedding.on.display
+        %td.center= image_tag(wedding.image.thumb) if wedding.image?
 

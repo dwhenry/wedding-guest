@@ -1,3 +1,10 @@
+$lightest: #E5E6D3;
+$light: #B58389;
+$medium: #E19E95;
+$dark: #3F1C29;
+$darkest: #65324B;
+
+
 .label {
   color: #777;
   font-size: 16px;
@@ -9,23 +16,37 @@
 }
 
 body {
-  background: pink;
+  background: $medium;
   margin: 0;
 }
 #screen {
   width: 1000px;
-  margin: auto;
+  margin: 10px auto;
   background: white;
   // padding: 20px 40px;
-  padding: 10px;
-  overflow: hidden;
+  padding: 5px;
 
+  border: white 1px solid;
+  border-radius: 20px;
+  -moz-border-radius: 20px;
+  -webkit-border-radius: 20px;
+
+  #padding {
+    overflow: hidden;
+    padding: 10px;
+    border: solid 3px $dark;
+    border-radius: 16px;
+    -moz-border-radius: 16px;
+    -webkit-border-radius: 16px;
+
+  }
 }
 
 h1 {
-  border-bottom: #CCC 2px solid;
+  border-bottom: $dark 2px solid;
   padding: 5px 0 20px 15px;
   margin: 0 0 20px 0;
+  color: $darkest;
 }
 
 #buttons {
@@ -39,18 +60,23 @@ h1 {
 }
 
 table, tr, td, th {
-  border: 1px solid #999;
+  border: 1px solid $darkest;
 }
 
 table {
   border-collapse: collapse;
   width: 100%;
+
   td, th {
     padding: 5px;
   }
   thead {
-    background: #EEE;
+    background: $dark;
     font-weight: bold;
+    color: $lightest;
+  }
+  tbody tr:hover {
+    background: $light;
   }
 }
 
@@ -71,6 +97,7 @@ table {
   }
 }
 
+.center { text-align: center; }
 .float_right {
   float: right;
   padding-right: 10px;

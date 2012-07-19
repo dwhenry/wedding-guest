@@ -8,14 +8,16 @@
 </head>
 <body>
   <div id="screen">
-    <div id='head'>
-      <div id="buttons">
-        <%= yield :buttons %>
+    <div id="padding">
+      <div id='head'>
+        <div id="buttons">
+          <%= yield :buttons %>
+        </div>
+        <h1><%= yield :head %></h1>
       </div>
-      <h1><%= yield :head %></h1>
-    </div>
-    <div id='body'>
-      <%= yield %>
+      <div id='body'>
+        <%= yield %>
+      </div>
     </div>
   </div>
 </body>
