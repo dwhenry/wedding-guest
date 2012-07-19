@@ -1,0 +1,15 @@
+!!!
+%html
+%head
+  %title Wedding Guest
+  = stylesheet_link_tag    "application"
+  = javascript_include_tag "application"
+  = csrf_meta_tags
+
+%body
+  #screen
+    #padding
+      #head
+        #buttons= yield :buttons
+        %h1= yield :head
+      #body= yield

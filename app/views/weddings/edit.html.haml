@@ -5,6 +5,8 @@
   |
   = link_to :index, weddings_path
 
+= render :partial => 'sidebar'
+
 = form_for @wedding do |f|
   = render :partial => 'fields', :locals => {:f => f}
 

@@ -1,16 +1,17 @@
 class WeddingsController < ApplicationController
-
+  layout 'sidebar'
   def index
     @weddings = Wedding.all
 
     respond_to do |format|
-      format.html # show.html.erb
+      format.html { render :index, :layout => 'full_width' }
       format.json  { render :json => @weddings.map(&:details) }
     end
   end
 
   def new
     @wedding = Wedding.new
+    render :new, :layout => 'full_width'
   end
 
   def create
@@ -20,7 +21,7 @@ class WeddingsController < ApplicationController
       redirect_to wedding_path(@wedding)
     rescue => e
       debugger
-      render :new
+      render :new, :layout => 'full_width'
     end
   end
 

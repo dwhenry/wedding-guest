@@ -57,6 +57,41 @@ h1 {
 #body {
   font-family: Arial, Helvetica, sans-serif;
   padding: 5px 15px;
+  overflow: hidden;
+
+  #sidebar {
+    float: left;
+    width: 200px;
+    border-right: 3px solid $medium;
+    padidng: 10px 0;
+    min-height: 30px;
+
+    ul {
+      list-style-type: none;
+      padding: 0;
+
+      li {
+        display: block;
+        border: solid 3px $medium;
+        border-right: none;
+        border-radius: 10px 0 0 10px;
+        -moz-border-radius: 10px 0 0 10px;
+        -webkit-border-radius: 10px 0 0 10px;
+        padding: 5px 0 5px 10px;
+        margin: 5px 0;
+
+        &.selected {
+          background-color: $lightest;
+        }
+      }
+    }
+  }
+
+  #main {
+    float: right;
+    width: 710px;
+    padding-left: 20px;
+  }
 }
 
 table, tr, td, th {
