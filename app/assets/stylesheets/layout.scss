@@ -15,6 +15,10 @@ $darkest: #65324B;
   margin: 5px 0 10px 0;
 }
 
+input {
+  font-size: 16px;
+}
+
 body {
   background: $medium;
   margin: 0;
@@ -154,6 +158,15 @@ table {
     -moz-border-radius: 10px 10px 0 0;
     -webkit-border-radius: 10px 10px 0 0;
     border-radius: 10px 10px 0 0;
+  }
+  .new_row {
+    display: none;
+  }
+  td.editing {
+    padding: 0;
+    margin: 0;
+
+    input { border: none; }
   }
 }
 

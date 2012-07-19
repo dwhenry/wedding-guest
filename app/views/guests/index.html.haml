@@ -1,0 +1,36 @@
+- content_for :head do
+  == #{@wedding.name}'s
+  Wedding
+- content_for :buttons do
+  = link_to :weddings, weddings_path
+
+= render :partial => 'weddings/sidebar'
+
+%h3 Guest List
+
+%table.editable
+  %thead
+    %tr
+      %th Name
+      %th Phone
+      %th Email
+      %th Status
+  %tbody.guests
+    - @wedding.guests.each do |guest|
+      %tr{:'data-url' => wedding_guest_path(@wedding, guest)}
+        %td{:'data-field' => :name}= guest.name
+        %td{:'data-field' => :phone}= guest.phone
+        %td{:'data-field' => :email}= guest.email
+        %td= guest.status
+
+    %tr.new_row
+      %td{:'data-field' => :name} &nbsp;
+      %td{:'data-field' => :phone} &nbsp;
+      %td{:'data-field' => :email} &nbsp;
+      %td{:'data-value' => 'Pending'} &nbsp;
+
+  %tfoot
+    %tr{:'data-table' => '.guests'}
+      %td{:colspan =>  4}
+        + Add Guest
+

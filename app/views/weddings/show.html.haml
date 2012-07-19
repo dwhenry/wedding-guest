@@ -1,9 +1,10 @@
 - content_for :head do
-  Your Wedding
+  == #{@wedding.name}'s
+  Wedding
 - content_for :buttons do
   = link_to :edit, edit_wedding_path(@wedding)
   |
-  = link_to :index, weddings_path
+  = link_to :weddings, weddings_path
 
 = render :partial => 'sidebar'
 

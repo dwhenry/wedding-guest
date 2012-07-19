@@ -1,8 +1,9 @@
 - content_for :sidebar do
   %ul
-    %li.selected{:'data-url' => wedding_path(@wedding)}
+    %li{:'data-url' => wedding_path(@wedding)}
       Details
-    %li Guests
+    %li{:'data-url' => wedding_guests_path(@wedding)}
+      Guests
     %li Gifts
     %li Location
     %li Hotels
