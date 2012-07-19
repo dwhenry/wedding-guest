@@ -1,6 +1,6 @@
 class Wedding < ActiveRecord::Base
   mount_uploader :image, BrideGroomUploader
-
+  default_scope :order => 'name'
   def details
     {
       :wedding => name,
