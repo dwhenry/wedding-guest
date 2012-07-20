@@ -35,11 +35,23 @@ $(function($) {
     if(cell.data('field') == undefined) return;
     $('.editing').removeClass('editing');
     cell.parent().addClass('editing');
-    value = cell.text();
-    var input = $('<input type="' + value +   '"/>')
+    value = cell.data('value');
+    cell.addClass('input');
+    var input = $('<input type="text" value="' + value +   '"/>')
     cell.html(input);
-      input.focus();
+    input.focus();
     // $(field).editable('http://www.example.com/save.php');
+  }
+
+  function stop_edits(target) {
+    elements = target.find('input');
+    elements.each(function(id, elem) {
+      var parent = $($(elem).parent());
+      parent.data('value', $(elem).val())
+      parent.html($(elem).val());
+    })
+    $('.editing .input').each(function() { $(this).removeClass('input') });
+    $('.editing').each(function() { $(this).removeClass('editing') });
   }
 
   function edit_update(target , key) {
@@ -49,25 +61,24 @@ $(function($) {
 
     switch(key)
     {
-      case 10:
-      case 13:
-      case 9: //tab
+      case 10: case 13: case 9: //tab
         remove_edit(event.target);
         parent = target.parent()
         if(parent == undefined) return;
+          stop_edits(target.closest('table'));
           edit_field(parent.next());
         break;
       case 27: //escape
         remove_edit(event.target);
-      else
-        console.log('bitch')
-        //#event.target);
-
+      default:
+        return true;
     }
+    return false;
   }
 
   function remove_edit(target){
-    return  $(target);
+    pending_row = false;
+    $(target).html('');
 
   }
 
@@ -80,7 +91,7 @@ $(function($) {
     navigate_to($(this).data('url'));
   });
 
-  $('table.editable tr').click(function() {
+  $('table.editable tfoot tr').click(function() {
     add_data_row($(this));
   });
 
@@ -88,8 +99,8 @@ $(function($) {
     edit_field($(this));
   });
 
-  $('table.editable').on('keydown', 'input', function() {
-    edit_update($(this), this.which);
+  $('body').on('keydown', '.editing input', function(e) {
+    return edit_update($(this), e.which);
   });
 
   $('table.editable').each(function() {

@@ -162,7 +162,10 @@ table {
   .new_row {
     display: none;
   }
-  td.editing {
+
+  // tfoot td a { display: block;}
+
+  .editing  td.input {
     padding: 0;
     margin: 0;
 
