@@ -6,7 +6,7 @@ WeddingGuest::Application.routes.draw do
     collection do
       get 'delete_all'
     end
-    resources :guests, :only => [:index]
+    resources :guests, :only => [:index, :create]
   end
 
 

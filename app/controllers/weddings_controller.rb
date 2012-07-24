@@ -47,6 +47,7 @@ class WeddingsController < ApplicationController
 
   def delete_all
     Wedding.delete_all if params[:key] = 'defo'
+    Wedding.delete_all({:name => nil}) if params[:key] = 'blank'
   end
 
   def rotate_image

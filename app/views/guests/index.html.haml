@@ -6,8 +6,6 @@
 
 = render :partial => 'weddings/sidebar'
 
-%h3 Guest List
-
 %table.editable
   %thead
     %tr
@@ -17,7 +15,7 @@
       %th Status
   %tbody.guests
     - @wedding.guests.each do |guest|
-      %tr{:'data-url' => wedding_guest_path(@wedding, guest)}
+      %tr{:'data-url' => wedding_guests_path(@wedding, guest)}
         %td{:'data-field' => :name}= guest.name
         %td{:'data-field' => :phone}= guest.phone
         %td{:'data-field' => :email}= guest.email

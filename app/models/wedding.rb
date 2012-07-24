@@ -4,6 +4,11 @@ class Wedding < ActiveRecord::Base
 
   has_many :guests
 
+  validates_presence_of :name
+  validates_presence_of :on
+  validates_presence_of :bride
+  validates_presence_of :groom
+
   def details
     {
       :wedding => name,
