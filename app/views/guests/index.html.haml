@@ -6,29 +6,42 @@
 
 = render :partial => 'weddings/sidebar'
 
+- wedding = GuestDetails.new(@wedding, params)
+
+%ul#guest_owner.selectable
+  - wedding.guest_owners.each do |guest_owner, class_name|
+    %li.select_element{class: class_name}
+      = link_to guest_owner.name, wedding_guests_path(@wedding, owner: guest_owner.name)
+  %li.select_element
+    = link_to '+ Add List'
+
 %table.editable
   %thead
     %tr
-      %th Name
-      %th Phone
-      %th Email
-      %th Status
+      %th.guest Guest
+      %th.seats Seats
+      %th.contact Contact
+      %th.status Status
   %tbody.guests
-    - @wedding.guests.each do |guest|
-      %tr{:'data-url' => wedding_guests_path(@wedding, guest)}
-        %td{:'data-field' => :name}= guest.name
-        %td{:'data-field' => :phone}= guest.phone
-        %td{:'data-field' => :email}= guest.email
+    - wedding.guests.each do |guest|
+      %tr{:'data-edit-url' => wedding_guest_path(@wedding, guest), :'data-id' => guest.id}
+        %td{:'data-field' => :name, :'data-value' => guest.name, :'data-prefix' => (wedding.display_owner? ? "(#{guest.owner.name})" : '')}
+          = "(#{guest.owner.name})" if wedding.display_owner?
+          = guest.name
+        %td{:'data-field' => :seats, :'data-value' => guest.seats}= guest.seats
+        %td{:'data-field' => :contact, :'data-value' => guest.contact}= guest.contact
         %td= guest.status
 
     %tr.new_row
+      %td{:'data-field' => :owner, :'data-value' => wedding.owner, :class => 'hidden'} &nbsp;
       %td{:'data-field' => :name} &nbsp;
-      %td{:'data-field' => :phone} &nbsp;
-      %td{:'data-field' => :email} &nbsp;
+      %td{:'data-field' => :seats} &nbsp;
+      %td{:'data-field' => :contact} &nbsp;
       %td{:'data-value' => 'Pending'} &nbsp;
 
-  %tfoot
-    %tr{:'data-table' => '.guests'}
-      %td{:colspan =>  4}
-        + Add Guest
+  - if wedding.can_add_guest?
+    %tfoot
+      %tr{:'data-table' => '.guests'}
+        %td{:colspan =>  4}
+          + Add Guest
 

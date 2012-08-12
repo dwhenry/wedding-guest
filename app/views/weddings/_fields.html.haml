@@ -8,23 +8,11 @@
     = f.file_field :image
     = f.hidden_field :image_cache
 
-.label
-  = f.label :name
-.value
-  = f.text_field :name
 
-.label
-  = f.label :bride
-.value
-  = f.text_field :bride
+= labeled_text_field_with_error(f, :name)
+= labeled_text_field_with_error(f, :bride)
+= labeled_text_field_with_error(f, :groom)
+= labeled_text_field_with_error(f, :on, :value => @wedding.on)
 
-.label
-  = f.label :groom
-.value
-  = f.text_field :groom
-
-.label
-  = f.label :on
-.value
-  = f.text_field :on
-
+%script
+  $('#wedding_on').datepicker({dateFormat: 'dd M yy'})

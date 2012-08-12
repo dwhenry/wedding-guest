@@ -20,7 +20,6 @@ class WeddingsController < ApplicationController
       @wedding.save!
       redirect_to wedding_path(@wedding)
     rescue => e
-      debugger
       render :new, :layout => 'full_width'
     end
   end

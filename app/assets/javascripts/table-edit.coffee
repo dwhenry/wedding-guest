@@ -8,7 +8,7 @@ class RowEditor
     @fieldsAdded = false
 
   firstCell: ->
-    @row.children('td').first()
+    @row.children('td:visible').first()
 
   nextCell: (fnt) ->
     @getCell('next', fnt)
@@ -21,7 +21,10 @@ class RowEditor
     while cell.length > 0 && cell.data('field') == undefined
       cell = cell[direction]()
     if cell.data('field') == undefined
-      @save() if @fieldsAdded || !@pending()
+      if @fieldsAdded || !@pending()
+        @stop()
+        saver = new RowSaver(@row)
+        saver.save()
     else
       fnt.call(this, cell)
 
@@ -38,39 +41,11 @@ class RowEditor
     @row.removeClass('editing')
     static.rowEditor = null
 
-  dataHash: ->
-    data = {};
-    @row.children('td').each ->
-      unless $(this).data('field') == undefined
-        data[$(this).data('field')] = $(this).data('value')
-    data
-
-  save: ->
-    @stop()
-    @update unless @pending
-    $.ajax({
-      url: @row.data('url'),
-      data: {guest: @dataHash()},
-      type: 'POST',
-      success: (response) =>
-        @row.data('id', response['id'])
-        builder = new RowBuilder('.guests')
-        static.rowEditor = new RowEditor(builder.row)
-    });
-
-  update: ->
-
-
-  stopCellEdit: ->
-    if @cellEditor
-      @fieldsAdded = true if @cellEditor.stop()
-      @cellEditor = null
-
 
   pending: ->
     @row.data('id') == undefined
 
-  process: (event) ->
+  processKey: (event) ->
     switch event.which
       when 10, 13 then @nextCell(@edit)
       when 9
@@ -84,6 +59,54 @@ class RowEditor
 
     false
 
+  stopCellEdit: ->
+    if @cellEditor
+      @fieldsAdded = true if @cellEditor.stop()
+      @cellEditor = null
+
+class RowSaver
+  _row = null;
+  constructor: (@row) ->
+    _row = @row
+
+  pending: ->
+    @row.data('id') == undefined
+
+  dataHash: ->
+    data = {};
+    @row.children('td').each ->
+      unless $(this).data('field') == undefined
+        data[$(this).data('field')] = $(this).data('value')
+    data
+
+  save: ->
+    if @pending
+      @saveRecord()
+    else
+      @updateRecord()
+
+  saveRecord: ->
+    $.ajax({
+      url: _row.data('edit-url'),
+      data: {guest: @dataHash()},
+      type: 'POST',
+      success: @saveSuccess
+    });
+
+  updateRecord: ->
+    $.ajax({
+      url: _row.data('edit-url'),
+      data: {guest: @dataHash()},
+      type: 'PUT',
+      success: @saveSuccess
+    });
+
+  saveSuccess: (response) ->
+    _row.data('id', response['id'])
+    _row.data('edit-url', response['url'])
+    builder = new RowBuilder('.guests')
+    static.rowEditor = new RowEditor(builder.row)
+
 
 
 class CellEditor
@@ -93,7 +116,10 @@ class CellEditor
     @inputElement().focus()
 
   inputElement: ->
-    @input ||= $('<input type="text" value="' + @cellValue() +   '"/>');
+    @input ||= $('<input type="text" value="' + @cellValue() +   '" style="width: ' + @width() + '"" />');
+
+  width: ->
+    @cell.width() - 5 + 'px'
 
   cellValue: (val) ->
     if val != undefined
@@ -153,7 +179,7 @@ $ ->
     false
 
   ($ 'table.editable').on 'keydown', '.editing input', (event) ->
-    static.rowEditor.process(event)
+    static.rowEditor.processKey(event)
 
   ($ 'table.editable').each ->
     $(this).after($('<input style="display: none/>'))

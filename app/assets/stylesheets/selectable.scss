@@ -1,0 +1,40 @@
+ul.selectable {
+  padding: 0 20px;
+  list-style-type: none;
+  border-bottom: 3px solid #999;
+
+  li.select_element {
+    display: inline-block;
+    // float: left;
+    border: 3px solid #999;
+    margin: 0 5px -3px 5px;
+    -moz-border-radius: 10px 10px 0 0;
+    -webkit-border-radius: 10px 10px 0 0;
+    border-radius: 10px 10px 0 0;
+    background-color: #d6d6d6;
+    background-image: -moz-linear-gradient(top, #ffffff, #d6d6d6);
+    background-image: -ms-linear-gradient(top, #ffffff, #d6d6d6);
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ffffff), to(#d6d6d6));
+    background-image: -webkit-linear-gradient(top, #ffffff, #d6d6d6);
+    background-image: -o-linear-gradient(top, #ffffff, #d6d6d6);
+    background-image: linear-gradient(top, #ffffff, #d6d6d6);
+    background-repeat: repeat-x;
+
+    &.selected {
+      border-bottom: 3px solid white;
+      z-index: 100;
+      background: white;
+    }
+
+    a, a:hover, a:visited {
+      color: #222;
+      text-decoration: none;
+      display: block;
+      padding: 5px 10px;
+    }
+
+    &:hover {
+      background: white;
+    }
+  }
+}

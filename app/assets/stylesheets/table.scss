@@ -1,0 +1,82 @@
+$lightest: #E5E6D3;
+$light: #B58389;
+$medium: #E19E95;
+$dark: #3F1C29;
+$darkest: #65324B;
+
+table {
+  box-sizing: border-box;
+  border-collapse: collapse;
+  *border-collapse: collapse; /* IE7 and lower */
+  border-spacing: 0;
+
+  width: 100%;
+
+  td, th {
+    padding: 5px;
+  }
+
+  td {
+    border: 1px solid $darkest;
+  }
+
+  thead {
+    background: $dark;
+    font-weight: bold;
+    color: $lightest;
+  }
+
+  tbody tr:nth-child(odd) {
+    background-color: $lightest;
+
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from($lightest), to(#FFF));
+    background: -webkit-linear-gradient(top, $lightest, #FFF);
+    background: -moz-linear-gradient(top, $lightest, #FFF);
+    background: -ms-linear-gradient(top, $lightest, #FFF);
+    background: -o-linear-gradient(top, $lightest, #FFF);
+  }
+
+  tbody tr:hover {
+    background: $light;
+    -o-transition: all 0.2s ease-in-out;
+    -webkit-transition: all 0.2s ease-in-out;
+    -moz-transition: all 0.2s ease-in-out;
+    -ms-transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
+  }
+
+  th:first-child {
+    -moz-border-radius: 10px 0 0 0;
+    -webkit-border-radius: 10px 0 0 0;
+    border-radius: 10px 0 0 0;
+  }
+
+  th:last-child {
+    -moz-border-radius: 0 10px 0 0;
+    -webkit-border-radius: 0 10px 0 0;
+    border-radius: 0 10px 0 0;
+  }
+
+  th:only-child {
+    -moz-border-radius: 10px 10px 0 0;
+    -webkit-border-radius: 10px 10px 0 0;
+    border-radius: 10px 10px 0 0;
+  }
+  .new_row {
+    display: none;
+  }
+
+  // tfoot td a { display: block;}
+
+  .editing  td.input {
+    padding: 0;
+    margin: 0;
+
+    input { border: none; }
+  }
+}
+
+th.guest { width: 50%;}
+th.seats { width: 10%;}
+th.contact { width: 30%;}
+th.status { width: 10%;}

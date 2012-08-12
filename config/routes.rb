@@ -6,9 +6,10 @@ WeddingGuest::Application.routes.draw do
     collection do
       get 'delete_all'
     end
-    resources :guests, :only => [:index, :create]
+    resources :guests, :only => [:index, :create, :update]
   end
 
+  resources :waste, :only => :index
 
 
   resources :resources, :only => [:show] do
@@ -66,7 +67,7 @@ WeddingGuest::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  # root :to => 'welcome#index'
+  root :to => 'weddings#index'
 
   # See how all your routes lay out with "rake routes"
 
