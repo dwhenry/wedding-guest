@@ -11,6 +11,7 @@ gem 'haml'
 gem 'carrierwave'
 gem 'rmagick'
 gem 'jquery-ui-rails'
+gem 'devise'
 
 # Gems used only for assets and not required
 # in production environments by default.

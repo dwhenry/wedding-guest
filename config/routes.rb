@@ -1,4 +1,6 @@
 WeddingGuest::Application.routes.draw do
+  devise_for :users, :controllers => { :sessions => "users/sessions" }
+
   resources :weddings do
     member do
       get 'rotate_image'
