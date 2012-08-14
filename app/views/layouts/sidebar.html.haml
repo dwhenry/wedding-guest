@@ -11,7 +11,13 @@
     #screen
       #padding
         #head
-          #buttons= yield :buttons
+          #buttons
+            - if current_user
+              = current_user.nickname
+              |
+              = yield :buttons
+              |
+              = link_to :logout, 'device/session', :method => 'delete'
           %h1= yield :head
         #body
           #sidebar

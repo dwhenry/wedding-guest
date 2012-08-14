@@ -38,6 +38,7 @@ ActiveRecord::Schema.define(:version => 20120814185840) do
   add_index "guests", ["wedding_id"], :name => "index_guests_on_wedding_id"
 
   create_table "users", :force => true do |t|
+    t.string   "nickname",               :default => "", :null => false
     t.string   "email",                  :default => "", :null => false
     t.string   "encrypted_password",     :default => "", :null => false
     t.string   "reset_password_token"

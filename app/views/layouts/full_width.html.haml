@@ -11,7 +11,11 @@
     #screen
       #padding
         #head
-          #buttons= yield :buttons
+          #buttons
+            - if current_user
+              = current_user.nickname
+              = yield :buttons
+              = link_to :logout
           %h1= yield :head
         #body= yield
 

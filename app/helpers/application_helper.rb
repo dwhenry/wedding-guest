@@ -1,7 +1,9 @@
 module ApplicationHelper
-  def labeled_text_field_with_error(form, field, options={})
-    builder = LabeledFieldWithError.new(form)
-    builder.write(:text_field, field, options)
+  [:text_field, :email_field, :password_field].each do |field_type|
+    define_method :"labeled_#{field_type}_with_error" do |form, field, options={}|
+      builder = LabeledFieldWithError.new(form)
+      builder.write(field_type, field, options)
+    end
   end
 
   class LabeledFieldWithError < SimpleDelegator

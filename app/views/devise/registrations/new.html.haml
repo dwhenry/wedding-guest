@@ -1,0 +1,20 @@
+- content_for :head do
+  Wedding Guest
+
+- content_for :sidebar do
+  .double_space
+    = render "devise/shared/links"
+
+%h2 Sign up
+
+= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f|
+  = devise_error_messages!
+
+  = labeled_text_field_with_error f, :nickname
+  = labeled_email_field_with_error f, :email
+  = labeled_password_field_with_error f, :password
+  = labeled_password_field_with_error f, :password_confirmation
+
+
+  .value= f.submit "Sign up"
+
