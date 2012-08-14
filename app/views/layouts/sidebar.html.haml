@@ -17,7 +17,7 @@
               |
               = yield :buttons
               |
-              = link_to :logout, 'device/session', :method => 'delete'
+              = button_to :logout, destroy_user_session_path, :method => 'delete'
           %h1= yield :head
         #body
           #sidebar

@@ -14,8 +14,10 @@
           #buttons
             - if current_user
               = current_user.nickname
+              |
               = yield :buttons
-              = link_to :logout
+              |
+              = button_to :logout, destroy_user_session_path, :method => 'delete'
           %h1= yield :head
         #body= yield
 

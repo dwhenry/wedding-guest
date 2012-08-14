@@ -6,8 +6,8 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable,
          :authentication_keys => [:login]
 
-  validates_presence_of :login
-  validates_uniqueness_of :login
+  validates_presence_of :nickname
+  validates_uniqueness_of :nickname
 
   attr_accessor :login
 
