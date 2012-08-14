@@ -7,9 +7,14 @@
   = csrf_meta_tags
 
 %body
-  #screen
-    #padding
-      #head
-        #buttons= yield :buttons
-        %h1= yield :head
-      #body= yield
+  #cover
+    #screen
+      #padding
+        #head
+          #buttons= yield :buttons
+          %h1= yield :head
+        #body= yield
+
+  #flash
+    %p.notice= notice if notice
+    %p.alert= alert if alert
