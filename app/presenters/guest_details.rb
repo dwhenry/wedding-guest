@@ -39,6 +39,13 @@ class GuestDetails
     owner == user.permissions.for_wedding(@wedding).first.list.try(:name)
   end
 
+  def can_edit_guest?(user)
+    for_wedding = user.permissions.for_wedding(@wedding).first
+
+    (owner == 'All' && for_wedding) ||
+    owner == for_wedding.list.try(:name)
+  end
+
   class GuestWrapper < SimpleDelegator
     def prefix(tab)
       (display_owner?(tab) ? "(#{owner.name})" : '')

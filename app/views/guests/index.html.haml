@@ -15,7 +15,7 @@
   %li.select_element
     = link_to '+ Add List'
 
-%table.editable
+%table.spaced{:class => "#{'editable' if wedding.can_edit_guest?(current_user)}"}
   %thead
     %tr
       %th.guest Guest
@@ -29,7 +29,7 @@
           = guest.full_name(params[:owner])
         %td{:'data-field' => :seats, :'data-value' => guest.seats}= guest.seats
         %td{:'data-field' => :contact, :'data-value' => guest.contact}= guest.contact
-        %td{:data => {:field => :status, :value => guest.status, :type => 'select'}}= guest.status
+        %td{:data => {:field => :status, :value => guest.status, :type => 'select', :list => ['Pending', 'Confirmed', 'Rejected'].to_json}}= guest.status
 
     - if wedding.can_add_guest?(current_user)
       %tr.new_row

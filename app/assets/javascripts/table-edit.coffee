@@ -60,7 +60,12 @@ class RowEditor
         else
           @nextCell(@edit)
       when 27
-        @stop(true)
+        if @pending()
+          @stop(true)
+        else
+          @stop()
+          window.location.href = window.location.href;
+
       else
         return true
 
@@ -166,7 +171,8 @@ class CellSelectEditor extends Editor
 
   buildInput: ->
     input = $('<select style="width: ' + @width() + '"" />');
-    input.append(@build_option_for(value)) for value in ['Pending', 'Confirmed', 'Rejected']
+    for value in @cell.data('list')
+      input.append(@build_option_for(value))
     input
 
   build_option_for: (value) ->
@@ -213,7 +219,7 @@ $ ->
     static.rowEditor.move($(this))
     false
 
-  ($ 'table.editable').on 'keydown', '.editing input', (event) ->
+  ($ 'table.editable').on 'keydown', '.editing input, .editing select', (event) ->
     static.rowEditor.processKey(event)
 
   ($ 'table.editable').each ->
