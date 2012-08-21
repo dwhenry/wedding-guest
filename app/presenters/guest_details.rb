@@ -11,13 +11,21 @@ class GuestDetails
     end
   end
 
-  def guests
-    case owner
-    when 'All'
-      wrap @wedding.guests.order('guests.name')
+  def guests(user)
+    if list_owner?(user)
+      case owner
+      when 'All'
+        wrap @wedding.guests.order('guests.name')
+      else
+        wrap @wedding.guests.for(owner).order('guests.name')
+      end
     else
-      wrap @wedding.guests.for(owner).order('guests.name')
+      wrap @wedding.guests.where(:status => 'Confirmed').order('guests.name')
     end
+  end
+
+  def list_owner?(user)
+    !user.permissions.for_wedding(@wedding).with_list.empty?
   end
 
   def wrap(guests)

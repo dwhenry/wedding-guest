@@ -8,22 +8,23 @@
 
 - wedding = GuestDetails.new(@wedding, params)
 
-%ul#guest_owner.selectable
-  - wedding.guest_owners.each do |guest_owner, class_name|
-    %li.select_element{class: class_name}
-      = link_to guest_owner.name, wedding_guests_path(@wedding, owner: guest_owner.name)
-  %li.select_element
-    = link_to '+ Add List'
+- if wedding.list_owner?(current_user)
+  %ul#guest_owner.selectable
+    - wedding.guest_owners.each do |guest_owner, class_name|
+      %li.select_element{class: class_name}
+        = link_to guest_owner.name, wedding_guests_path(@wedding, owner: guest_owner.name)
+    %li.select_element
+      = link_to '+ Add List'
 
 %table.spaced{:class => "#{'editable' if wedding.can_edit_guest?(current_user)}"}
   %thead
     %tr
-      %th.guest Guest
+      %th.guest Guest Name
       %th.seats Seats
       %th.contact Contact
       %th.status Status
   %tbody.guests
-    - wedding.guests.each do |guest|
+    - wedding.guests(current_user).each do |guest|
       %tr{:'data-edit-url' => wedding_guest_path(@wedding, guest), :'data-id' => guest.id}
         %td{:'data-field' => :name, :'data-value' => guest.name, :'data-prefix' => guest.prefix(params[:owner])}
           = guest.full_name(params[:owner])
