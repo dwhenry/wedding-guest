@@ -9,14 +9,11 @@ body {
   margin: 0;
   background-image: url(<%= asset_path 'floral_bg.jpg' %>);
   background-repeat: repeat;
-  filter: alpha(opacity=90);
-  opacity: 0.90;
-
 }
 #cover {
   position: absolute;
   width: 100%;
-  background: $medium;
+  background: rgba(#E19E95, 0.8);
   top: 0px;
   bottom: 0px;
   overflow: hidden;
@@ -24,7 +21,8 @@ body {
 #screen {
   width: 1000px;
   margin: 10px auto;
-  background: white;
+  background: rgba(#FFF, 0.8);
+  background: #EED8CE;
   // padding: 20px 40px;
   padding: 5px;
 
@@ -95,7 +93,7 @@ h1 {
         background-color: $lightest;
 
         &.selected {
-          background-color: white;
+          background: #EED8CE;
           margin-right: -3px;
         }
 

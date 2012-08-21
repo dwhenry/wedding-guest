@@ -1,6 +1,7 @@
 class Guest < ActiveRecord::Base
   belongs_to :wedding
   belongs_to :owner, :class_name => 'GuestOwner', :foreign_key => 'guest_owner_id'
+  has_many :permissions, :class_name => 'GuestPermission'
 
   scope :for, lambda {|owner_name|
     includes(:owner).where(guest_owners: {name: owner_name})
@@ -9,11 +10,15 @@ class Guest < ActiveRecord::Base
   after_create :make_pending
 
   def make_pending
-    status = 'Pending'
+    self.status = 'Pending'
+  end
+
+  def confirm!
+    update_attributes!(:status => 'confirmed')
   end
 
   def contact=(value)
-    value =~ /@/ ? (email = value) : (phone = value)
+    value =~ /@/ ? (self.email = value) : (self.phone = value)
   end
 
   def contact

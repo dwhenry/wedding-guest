@@ -3,22 +3,22 @@ class Wedding < ActiveRecord::Base
   extend Fields
   formatted_date :on
   mount_uploader :image, BrideGroomUploader
-  default_scope :order => 'name'
+  default_scope :order => 'weddings.name'
 
   has_many :guests
   has_many :guest_owners
 
-  validates_presence_of :name
-  validates_presence_of :on
-  validates_presence_of :bride
-  validates_presence_of :groom
+  validates_presence_of :name, :on, :bride, :groom, :bride_email, :groom_email
 
   after_create :create_guest_owner_list
 
   def create_guest_owner_list
-    self.guest_owners.create!(:name => 'All')
-    self.guest_owners.create!(:name => 'Bride')
-    self.guest_owners.create!(:name => 'Groom')
+    all_guests = self.guest_owners.create!(:name => 'All')
+    bride_list = self.guest_owners.create!(:name => 'Bride')
+    groom_list = self.guest_owners.create!(:name => 'Groom')
+
+    create_guest(all_guests, bride, bride_email, bride_list)
+    create_guest(all_guests, groom, groom_email, groom_list)
   end
 
   def details
@@ -27,5 +27,22 @@ class Wedding < ActiveRecord::Base
       :date => on,
       :image_path => image.thumb.url
     }
+  end
+
+private
+
+  def create_guest(owner, name, email, list)
+    created_guest = owner.guests.create!(
+      :name => name,
+      :email => email,
+      :seats => 1,
+      :wedding => self
+    )
+
+    if user = User.find_by_email(email)
+      created_guest.permissions.create(:user => user, :list => list)
+    end
+
+    created_guest.confirm!
   end
 end

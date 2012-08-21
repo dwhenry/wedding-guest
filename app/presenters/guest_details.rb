@@ -14,9 +14,15 @@ class GuestDetails
   def guests
     case owner
     when 'All'
-      @wedding.guests
+      wrap @wedding.guests.order('guests.name')
     else
-      @wedding.guests.for(owner)
+      wrap @wedding.guests.for(owner).order('guests.name')
+    end
+  end
+
+  def wrap(guests)
+    guests.map do |guest|
+      GuestWrapper.new guest
     end
   end
 
@@ -24,11 +30,30 @@ class GuestDetails
     @params[:owner] || 'All'
   end
 
-  def can_add_guest?
-    owner != 'All'
+  def guest_owner_id
+    @wedding.guest_owners.where(:name => owner).first.id
   end
 
-  def display_owner?
-    !can_add_guest?
+  def can_add_guest?(user)
+    owner != 'All' &&
+    owner == user.permissions.for_wedding(@wedding).first.list.try(:name)
+  end
+
+  class GuestWrapper < SimpleDelegator
+    def prefix(tab)
+      (display_owner?(tab) ? "(#{owner.name})" : '')
+    end
+
+    def full_name(tab)
+      if display_owner?(tab)
+        "#{name} #{prefix(tab)}"
+      else
+        name
+      end
+    end
+
+    def display_owner?(tab)
+      (tab.blank? || tab == 'All') && owner.name != 'All'
+    end
   end
 end

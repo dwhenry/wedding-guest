@@ -5,6 +5,9 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable,
          :authentication_keys => [:login]
+  has_many :permissions, :class_name => 'GuestPermission'
+  has_many :guests, :through => :permissions
+  has_many :weddings, :through => :guests
 
   validates_presence_of :nickname
   validates_uniqueness_of :nickname
@@ -14,6 +17,16 @@ class User < ActiveRecord::Base
   # Setup accessible (or protected) attributes for your model
   attr_accessible :login, :nickname, :email, :password, :password_confirmation, :remember_me
 
+  after_save :attach_user
+
+  def attach_user
+    Guest.find_all_by_email(email).each do |guest|
+      if guest.permissions.where(:user_id => id).empty?
+        guest.permissions.create!(:user => self)
+      end
+    end
+  end
+
   def self.find_first_by_auth_conditions(warden_conditions)
     conditions = warden_conditions.dup
     if login = conditions.delete(:login)
@@ -21,5 +34,9 @@ class User < ActiveRecord::Base
     else
       where(conditions).first
     end
+  end
+
+  def guest_of?(wedding)
+    weddings.include?(wedding)
   end
 end

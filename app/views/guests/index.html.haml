@@ -25,21 +25,21 @@
   %tbody.guests
     - wedding.guests.each do |guest|
       %tr{:'data-edit-url' => wedding_guest_path(@wedding, guest), :'data-id' => guest.id}
-        %td{:'data-field' => :name, :'data-value' => guest.name, :'data-prefix' => (wedding.display_owner? ? "(#{guest.owner.name})" : '')}
-          = "(#{guest.owner.name})" if wedding.display_owner?
-          = guest.name
+        %td{:'data-field' => :name, :'data-value' => guest.name, :'data-prefix' => guest.prefix(params[:owner])}
+          = guest.full_name(params[:owner])
         %td{:'data-field' => :seats, :'data-value' => guest.seats}= guest.seats
         %td{:'data-field' => :contact, :'data-value' => guest.contact}= guest.contact
-        %td= guest.status
+        %td{:data => {:field => :status, :value => guest.status, :type => 'select'}}= guest.status
 
-    %tr.new_row
-      %td{:'data-field' => :owner, :'data-value' => wedding.owner, :class => 'hidden'} &nbsp;
-      %td{:'data-field' => :name} &nbsp;
-      %td{:'data-field' => :seats} &nbsp;
-      %td{:'data-field' => :contact} &nbsp;
-      %td{:'data-value' => 'Pending'} &nbsp;
+    - if wedding.can_add_guest?(current_user)
+      %tr.new_row
+        %td{:'data-field' => :guest_owner_id, :'data-value' => wedding.guest_owner_id, :class => 'hidden'} &nbsp;
+        %td{:'data-field' => :name} &nbsp;
+        %td{:'data-field' => :seats} &nbsp;
+        %td{:'data-field' => :contact} &nbsp;
+        %td{:'data-value' => 'Pending'} &nbsp;
 
-  - if wedding.can_add_guest?
+  - if wedding.can_add_guest?(current_user)
     %tfoot
       %tr{:'data-table' => '.guests'}
         %td{:colspan =>  4}

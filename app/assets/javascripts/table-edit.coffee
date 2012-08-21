@@ -21,26 +21,32 @@ class RowEditor
     while cell.length > 0 && cell.data('field') == undefined
       cell = cell[direction]()
     if cell.data('field') == undefined
-      if @fieldsAdded || !@pending()
-        @stop()
-        saver = new RowSaver(@row)
-        saver.save()
+      @finalize()
     else
       fnt.call(this, cell)
+
+  finalize: ->
+    if @fieldsAdded || !@pending()
+      @stop()
+      saver = new RowSaver(@row)
+      saver.save()
+    else
+      @stop(true)
 
   move: (cell) ->
     @edit cell
 
   edit: (cell) ->
     @stopCellEdit()
-    @cellEditor = new CellEditor(cell);
+    @cellEditor = Editor.build(cell);
     true
 
-  stop: ->
+  stop: (cancel) ->
     @stopCellEdit()
     @row.removeClass('editing')
     static.rowEditor = null
-
+    if cancel
+      @row.remove()
 
   pending: ->
     @row.data('id') == undefined
@@ -53,7 +59,8 @@ class RowEditor
           @prevCell(@edit)
         else
           @nextCell(@edit)
-      when 27 then @stop()
+      when 27
+        @stop(true)
       else
         return true
 
@@ -80,7 +87,7 @@ class RowSaver
     data
 
   save: ->
-    if @pending
+    if @pending()
       @saveRecord()
     else
       @updateRecord()
@@ -104,19 +111,25 @@ class RowSaver
   saveSuccess: (response) ->
     _row.data('id', response['id'])
     _row.data('edit-url', response['url'])
-    builder = new RowBuilder('.guests')
-    static.rowEditor = new RowEditor(builder.row)
+    if response['errors'] == ''
+      if _row.parent().find('.new_row')
+        builder = new RowBuilder('.guests')
+        static.rowEditor = new RowEditor(builder.row)
+    else
+      alert(response['errors'])
 
+class Editor
+  @build: (cell) =>
+    switch cell.data('type')
+      when undefined
+        new CellEditor(cell)
+      when 'select'
+        new CellSelectEditor(cell)
 
-
-class CellEditor
   constructor: (@cell) ->
     @cell.addClass('input')
     @cell.html(@inputElement())
     @inputElement().focus()
-
-  inputElement: ->
-    @input ||= $('<input type="text" value="' + @cellValue() +   '" style="width: ' + @width() + '"" />');
 
   width: ->
     @cell.width() - 5 + 'px'
@@ -130,15 +143,37 @@ class CellEditor
     else
       @cell.data('value')
 
+  prefix: ->
+    if @cell.data('prefix') == undefined
+      ''
+    else
+      ' ' + @cell.data('prefix')
 
   stop: ->
-    value = @input.val()
+    value = @inputElement().val()
     @cellValue value
-    @cell.html @input.val()
+    @cell.html @cellValue() + @prefix()
     @cell.removeClass('input')
     value.trim() != ''
 
+class CellEditor extends Editor
+  inputElement: ->
+    @input ||= $('<input type="text" value="' + @cellValue() +   '" style="width: ' + @width() + '"" />');
 
+class CellSelectEditor extends Editor
+  inputElement: ->
+    @input ||= @buildInput()
+
+  buildInput: ->
+    input = $('<select style="width: ' + @width() + '"" />');
+    input.append(@build_option_for(value)) for value in ['Pending', 'Confirmed', 'Rejected']
+    input
+
+  build_option_for: (value) ->
+    if value == @cellValue()
+      $('<option value="' + value + '" selected="selected">' + value + '</option>')
+    else
+      $('<option value="' + value + '">' + value + '</option>')
 class RowBuilder
   constructor: (@tableName) ->
     @copy()
@@ -160,7 +195,7 @@ class RowBuilder
 $ ->
   ($ 'body').click ->
     if static.rowEditor
-      static.rowEditor.stop()
+      static.rowEditor.finalize()
 
   ($ 'table.editable tfoot tr').click ->
     if static.rowEditor

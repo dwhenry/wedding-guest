@@ -1,7 +1,7 @@
 class WeddingsController < ApplicationController
   layout 'sidebar'
   def index
-    @weddings = Wedding.all
+    @weddings = current_user.weddings
 
     respond_to do |format|
       format.html { render :index, :layout => 'full_width' }
@@ -35,7 +35,6 @@ class WeddingsController < ApplicationController
       @wedding.update_attributes!(params[:wedding])
       redirect_to wedding_path(@wedding)
     rescue => e
-      debugger
       render :edit
     end
   end
@@ -56,5 +55,10 @@ class WeddingsController < ApplicationController
     wedding.image.thumb.store!
     wedding.save
     redirect_to wedding
+  end
+
+private
+  def wedding
+    Wedding.find_by_id(params[:id])
   end
 end

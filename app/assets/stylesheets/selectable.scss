@@ -1,29 +1,29 @@
+$lightest: #E5E6D3;
+$light: #B58389;
+$medium: #E19E95;
+$dark: #3F1C29;
+$darkest: #65324B;
+
 ul.selectable {
   padding: 0 20px;
   list-style-type: none;
-  border-bottom: 3px solid #999;
+  border-bottom: 3px solid $medium;
+  margin-bottom: -3px;
 
   li.select_element {
     display: inline-block;
     // float: left;
-    border: 3px solid #999;
+    border: 3px solid $medium;
     margin: 0 5px -3px 5px;
     -moz-border-radius: 10px 10px 0 0;
     -webkit-border-radius: 10px 10px 0 0;
     border-radius: 10px 10px 0 0;
-    background-color: #d6d6d6;
-    background-image: -moz-linear-gradient(top, #ffffff, #d6d6d6);
-    background-image: -ms-linear-gradient(top, #ffffff, #d6d6d6);
-    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ffffff), to(#d6d6d6));
-    background-image: -webkit-linear-gradient(top, #ffffff, #d6d6d6);
-    background-image: -o-linear-gradient(top, #ffffff, #d6d6d6);
-    background-image: linear-gradient(top, #ffffff, #d6d6d6);
-    background-repeat: repeat-x;
+    background-color: $lightest;
 
     &.selected {
-      border-bottom: 3px solid white;
-      z-index: 100;
-      background: white;
+      margin-bottom: -3px;
+      border-bottom: 3px solid #EED8CE;
+      background: #EED8CE;
     }
 
     a, a:hover, a:visited {
@@ -34,7 +34,8 @@ ul.selectable {
     }
 
     &:hover {
-      background: white;
+      background: $medium;
+      border-bottom: 3px solid $medium;
     }
   }
 }
