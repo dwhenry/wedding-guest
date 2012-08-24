@@ -13,8 +13,8 @@
     - wedding.guest_owners.each do |guest_owner, class_name|
       %li.select_element{class: class_name}
         = link_to guest_owner.name, wedding_guests_path(@wedding, owner: guest_owner.name)
-    %li.select_element
-      = link_to '+ Add List'
+    %li.select_element.float_right
+      = link_to 'Manage'
 
 %table.spaced{:class => "#{'editable' if wedding.can_edit_guest?(current_user)}"}
   %thead
@@ -38,7 +38,7 @@
         %td{:'data-field' => :name} &nbsp;
         %td{:'data-field' => :seats} &nbsp;
         %td{:'data-field' => :contact} &nbsp;
-        %td{:'data-value' => 'Pending'} &nbsp;
+        %td{:'data-field' => :status, :'data-skip' => 'true'} &nbsp;
 
   - if wedding.can_add_guest?(current_user)
     %tfoot

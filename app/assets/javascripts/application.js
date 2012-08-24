@@ -7,4 +7,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery.ui.datepicker
-//= require_tree .
+
+//= require sidebar
+//= require table-edit
+//= require table

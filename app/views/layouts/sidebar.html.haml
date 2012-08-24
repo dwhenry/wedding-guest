@@ -1,26 +1,7 @@
-!!!
-%html
-%head
-  %title Wedding Guest
-  = stylesheet_link_tag    "application"
-  = javascript_include_tag "application"
-  = csrf_meta_tags
+- content_for :content do
+  #sidebar
+    = yield :sidebar
+  #main
+    = yield
 
-%body
-  #cover
-    #screen
-      #padding
-        #head
-          #buttons
-            - if current_user
-              = current_user.nickname
-              |
-              = yield :buttons
-              |
-              = button_to :logout, destroy_user_session_path, :method => 'delete'
-          %h1= yield :head
-        #body
-          #sidebar
-            = yield :sidebar
-          #main
-            = yield
+= render :file => 'layouts/full_width'

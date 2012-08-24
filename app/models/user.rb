@@ -21,9 +21,7 @@ class User < ActiveRecord::Base
 
   def attach_user
     Guest.find_all_by_email(email).each do |guest|
-      if guest.permissions.where(:user_id => id).empty?
-        guest.permissions.create!(:user => self)
-      end
+      Guest::Permissions.new(guest).ensure_permissions_for(self)
     end
   end
 

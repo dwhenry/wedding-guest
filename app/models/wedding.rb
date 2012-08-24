@@ -45,4 +45,23 @@ private
 
     created_guest.confirm!
   end
+
+  class List < SimpleDelegator
+    def for(email)
+      if groom_email == email
+        groom_list
+      elsif bride_email == email
+        bride_list
+      end
+    end
+
+    def groom_list
+      guest_owners.where(:name => 'Groom').first
+    end
+
+    def bride_list
+      guest_owners.where(:name => 'Bride').first
+    end
+  end
+
 end

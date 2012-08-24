@@ -39,4 +39,9 @@ group :test do
   # Pretty printed test output
   gem 'turn', '0.8.2', :require => false
   gem 'ruby-debug19'
+  gem 'rspec-rails'
+  gem 'capybara-webkit', '~> 0.7.2'
+  gem 'database_cleaner', '~> 0.6.7'
+  gem "factory_girl_rails", "~> 4.0"
+  # gem 'launchy'
 end

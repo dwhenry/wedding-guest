@@ -18,18 +18,19 @@ class RowEditor
 
   getCell: (direction, fnt) ->
     cell = @cellEditor.cell[direction]()
-    while cell.length > 0 && cell.data('field') == undefined
+    while cell.length > 0 && cell.data('skip')
       cell = cell[direction]()
-    if cell.data('field') == undefined
-      @finalize()
-    else
+    if cell.length > 0 # found a matching element
       fnt.call(this, cell)
+    else
+      @finalize()
 
   finalize: ->
     if @fieldsAdded || !@pending()
-      @stop()
+      @stopCellEdit()
       saver = new RowSaver(@row)
       saver.save()
+      @stop()
     else
       @stop(true)
 
@@ -87,11 +88,12 @@ class RowSaver
   dataHash: ->
     data = {};
     @row.children('td').each ->
-      unless $(this).data('field') == undefined
+      unless $(this).data('skip')
         data[$(this).data('field')] = $(this).data('value')
     data
 
   save: ->
+    $(@row.children('td').last()).html('Saving')
     if @pending()
       @saveRecord()
     else
@@ -113,15 +115,24 @@ class RowSaver
       success: @saveSuccess
     });
 
-  saveSuccess: (response) ->
+  saveSuccess: (response) =>
     _row.data('id', response['id'])
     _row.data('edit-url', response['url'])
     if response['errors'] == ''
+      @ensure_up_todate(response)
       if _row.parent().find('.new_row')
         builder = new RowBuilder('.guests')
         static.rowEditor = new RowEditor(builder.row)
     else
+      $(@row.children('td').last()).html('Error')
       alert(response['errors'])
+
+  ensure_up_todate: (response) ->
+    for td in @row.children('td')
+      $_td = $(td)
+      value = response[response['id']][$_td.data('field')]
+      $_td.html(value)
+      $_td.data('value', value)
 
 class Editor
   @build: (cell) =>
@@ -163,14 +174,14 @@ class Editor
 
 class CellEditor extends Editor
   inputElement: ->
-    @input ||= $('<input type="text" value="' + @cellValue() +   '" style="width: ' + @width() + '"" />');
+    @input ||= $('<input id="input" type="text" value="' + @cellValue() +   '" style="width: ' + @width() + '"" />');
 
 class CellSelectEditor extends Editor
   inputElement: ->
     @input ||= @buildInput()
 
   buildInput: ->
-    input = $('<select style="width: ' + @width() + '"" />');
+    input = $('<select id="input" style="width: ' + @width() + '"" />');
     for value in @cell.data('list')
       input.append(@build_option_for(value))
     input
@@ -180,6 +191,7 @@ class CellSelectEditor extends Editor
       $('<option value="' + value + '" selected="selected">' + value + '</option>')
     else
       $('<option value="' + value + '">' + value + '</option>')
+
 class RowBuilder
   constructor: (@tableName) ->
     @copy()
