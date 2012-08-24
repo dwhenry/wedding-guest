@@ -8,6 +8,7 @@
 //= require jquery_ujs
 //= require jquery.ui.datepicker
 
+//= require wedding_guest
 //= require sidebar
 //= require table-edit
 //= require table
