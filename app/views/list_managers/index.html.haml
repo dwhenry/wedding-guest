@@ -9,11 +9,11 @@
 - wedding = @wedding
 
 %ul#guest_lists.selectable
+  %li.select_element.float_right{class: 'selected'}
+    = link_to 'Manage Lists', wedding_list_managers_path(@wedding)
   - wedding.guest_lists.each do |guest_list, class_name|
     %li.select_element
       = link_to guest_list.name, wedding_guests_path(@wedding, list: guest_list.name)
-  %li.select_element.float_right{class: 'selected'}
-    = link_to 'Manage', wedding_list_managers_path(@wedding)
 
 %table.spaced{:class => "editable"}
   %thead
@@ -33,14 +33,16 @@
               = user.nickname
               = link_to '(Remove)', owner_wedding_list_manager_path(@wedding, guest_list.id, :method => 'delete', :user_id => user.id), :class => 'delete'
 
-    %tr.new_row
-      %td{:'data-field' => :wedding_id, :'data-value' => wedding.id, :class => 'hidden'} &nbsp;
-      %td{:'data-field' => :name} &nbsp;
-      %td{:'data-field' => :description} &nbsp;
-      %td{:data => {:field => :user, :type => :select, :list => (['<-select to add->'] + wedding.guest_names).to_json}} &nbsp;
+    - if wedding.guest_lists.size <= 5
+      %tr.new_row
+        %td{:'data-field' => :wedding_id, :'data-value' => wedding.id, :class => 'hidden'} &nbsp;
+        %td{:'data-field' => :name} &nbsp;
+        %td{:'data-field' => :description} &nbsp;
+        %td{:data => {:field => :user, :type => :select, :list => (['<-select to add->'] + wedding.guest_names).to_json}} &nbsp;
 
-  %tfoot
-    %tr{:'data-table' => '.guest_list'}
-      %td{:colspan =>  3}
-        + Add Guest List
+  - if wedding.guest_lists.size <= 5
+    %tfoot
+      %tr{:'data-table' => '.guest_list'}
+        %td{:colspan =>  3}
+          + Add Guest List
 

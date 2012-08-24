@@ -6,7 +6,7 @@ class Wedding < ActiveRecord::Base
   default_scope :order => 'weddings.name'
 
   has_many :guests
-  has_many :guest_lists
+  has_many :guest_lists, :order => 'created_at'
 
   validates_presence_of :name, :on, :bride, :groom, :bride_email, :groom_email
 
