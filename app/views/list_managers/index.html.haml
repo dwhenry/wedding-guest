@@ -27,7 +27,7 @@
         %td{:'data-field' => :name, :'data-value' => guest_list.name}
           = guest_list.name
         %td{:'data-field' => :description, :'data-value' => guest_list.description}= guest_list.description
-        %td{:data => {:field => :users, :type => :select, :list => (['<-select to add->'] + wedding.guest_names).to_json}}
+        %td{:data => {:field => :user, :type => :select, :list => (['<-select to add->'] + wedding.guest_names).to_json}}
           - guest_list.users.each do |user|
             .div
               = user.nickname
@@ -37,7 +37,7 @@
       %td{:'data-field' => :wedding_id, :'data-value' => wedding.id, :class => 'hidden'} &nbsp;
       %td{:'data-field' => :name} &nbsp;
       %td{:'data-field' => :description} &nbsp;
-      %td{:data => {:field => :users, :type => :select, :list => ([''] + wedding.guest_names).to_json}} &nbsp;
+      %td{:data => {:field => :user, :type => :select, :list => (['<-select to add->'] + wedding.guest_names).to_json}} &nbsp;
 
   %tfoot
     %tr{:'data-table' => '.guest_list'}

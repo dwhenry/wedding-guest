@@ -4,10 +4,16 @@ class GuestList < ActiveRecord::Base
   has_many :permissions, :class_name => 'GuestPermission', :foreign_key => 'list_id'
   has_many :users, :through => :permissions
 
-  def users=(nick_name)
-    user_id = User.find_by_nickname(nick_name)
-    if user_id && permission = permissions.where(user_id: user_id).first
+  def user=(nick_name)
+    user = User.find_by_nickname(nick_name)
+    if user && permission = user.permissions.for_wedding(wedding).first
       permission.update_attributes!(:list => self)
+    end
+  end
+
+  def remove_user_permissions(user_id)
+    if permission = permissions.where(user_id: user_id).first
+      permission.update_attributes!(:list => nil)
     end
   end
 end
