@@ -6,6 +6,8 @@ class GuestPermission < ActiveRecord::Base
   scope :for_wedding, lambda {|wedding|
     includes(:guest).where(['guests.wedding_id = ?', wedding.id])
   }
-
   scope :with_list, where('guest_permissions.list_id is not null')
+
+  validates_uniqueness_of :user_id, :scope => :guest_id
+  validates_uniqueness_of :guest_id, :scope => :user_id
 end

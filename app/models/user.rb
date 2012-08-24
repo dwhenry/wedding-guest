@@ -35,6 +35,12 @@ class User < ActiveRecord::Base
   end
 
   def guest_of?(wedding)
-    weddings.include?(wedding)
+    weddings.include?(wedding) && guest_for(wedding).confirmed?
+  end
+
+  def guest_for(wedding)
+    (wedding.guests & guests).tap do |array|
+      raise 'Guest Invited to wedding twice.  Please investigate' if array.size > 1
+    end.first
   end
 end

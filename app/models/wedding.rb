@@ -29,6 +29,10 @@ class Wedding < ActiveRecord::Base
     }
   end
 
+  def guest_names
+    guests.map(&:users).flatten.compact.map(&:nickname)
+  end
+
 private
 
   def create_guest(owner, name, email, list)

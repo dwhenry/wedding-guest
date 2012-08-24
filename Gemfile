@@ -43,5 +43,5 @@ group :test do
   gem 'capybara-webkit', '~> 0.7.2'
   gem 'database_cleaner', '~> 0.6.7'
   gem "factory_girl_rails", "~> 4.0"
-  # gem 'launchy'
+  gem 'launchy'
 end

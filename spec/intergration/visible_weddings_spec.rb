@@ -20,12 +20,21 @@ feature 'visible weddings' do
     page.should have_css('tr', :text => wedding.name)
   end
 
-  scenario 'includes weddings where user is guest' do
+  scenario 'includes weddings where user is confirmed guest' do
+    guest.confirm!
     login_as guest.email
 
     visit weddings_path
 
     page.should have_css('tr', :text => wedding.name)
+  end
+
+  scenario 'does not includes weddings where user is unconfirmed guest' do
+    login_as guest.email
+
+    visit weddings_path
+
+    page.should have_no_css('tr', :text => wedding.name)
   end
 
   scenario 'does not include weddings where user is not one of bride/guest/guest' do

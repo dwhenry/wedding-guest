@@ -14,7 +14,7 @@
       %li.select_element{class: class_name}
         = link_to guest_owner.name, wedding_guests_path(@wedding, owner: guest_owner.name)
     %li.select_element.float_right
-      = link_to 'Manage'
+      = link_to 'Manage', wedding_list_managers_path(@wedding)
 
 %table.spaced{:class => "#{'editable' if wedding.can_edit_guest?(current_user)}"}
   %thead

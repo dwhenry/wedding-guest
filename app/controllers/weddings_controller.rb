@@ -1,7 +1,7 @@
 class WeddingsController < ApplicationController
   layout 'sidebar'
   def index
-    @weddings = current_user.weddings
+    @weddings = current_user.weddings.where("guests.status = 'Confirmed'")
 
     respond_to do |format|
       format.html { render :index, :layout => 'full_width' }
