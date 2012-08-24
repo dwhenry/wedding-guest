@@ -4,13 +4,13 @@ class GuestsController < ApplicationController
   end
 
   def create
-    guest = Guest.create(params[:guest].merge(params.slice(:wedding_id)))
+    guest = Guest.create(params[:data].merge(params.slice(:wedding_id)))
     render :json => details_for(guest)
   end
 
   def update
     guest = Guest.find(params[:id])
-    guest.update_attributes(params[:guest])
+    guest.update_attributes(params[:data])
     render :json => details_for(guest)
   end
 

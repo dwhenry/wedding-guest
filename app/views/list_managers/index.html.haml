@@ -1,0 +1,46 @@
+- content_for :head do
+  == #{@wedding.name}'s
+  Wedding
+- content_for :buttons do
+  = link_to :weddings, weddings_path
+
+= render :partial => 'weddings/sidebar'
+
+- wedding = @wedding
+
+%ul#guest_lists.selectable
+  - wedding.guest_lists.each do |guest_list, class_name|
+    %li.select_element
+      = link_to guest_list.name, wedding_guests_path(@wedding, list: guest_list.name)
+  %li.select_element.float_right{class: 'selected'}
+    = link_to 'Manage', wedding_list_managers_path(@wedding)
+
+%table.spaced{:class => "editable"}
+  %thead
+    %tr
+      %th.list_name List Name
+      %th.list_description List Description
+      %th.owners Owner(s)
+  %tbody.guest_list
+    - wedding.guest_lists.each do |guest_list|
+      %tr{:'data-edit-url' => wedding_list_manager_path(@wedding, guest_list), :'data-id' => guest_list.id}
+        %td{:'data-field' => :name, :'data-value' => guest_list.name}
+          = guest_list.name
+        %td{:'data-field' => :description, :'data-value' => guest_list.description}= guest_list.description
+        %td{:data => {:field => :users, :type => :select, :list => (['<-select to add->'] + wedding.guest_names).to_json}}
+          - guest_list.users.each do |user|
+            .div
+              = user.nickname
+              = link_to '(Remove)', owner_wedding_list_manager_path(@wedding, guest_list.id, :method => 'delete', :user_id => user.id), :class => 'delete'
+
+    %tr.new_row
+      %td{:'data-field' => :wedding_id, :'data-value' => wedding.id, :class => 'hidden'} &nbsp;
+      %td{:'data-field' => :name} &nbsp;
+      %td{:'data-field' => :description} &nbsp;
+      %td{:data => {:field => :users, :type => :select, :list => ([''] + wedding.guest_names).to_json}} &nbsp;
+
+  %tfoot
+    %tr{:'data-table' => '.guest_list'}
+      %td{:colspan =>  3}
+        + Add Guest List
+

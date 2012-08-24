@@ -4,13 +4,10 @@ class GuestList < ActiveRecord::Base
   has_many :permissions, :class_name => 'GuestPermission', :foreign_key => 'list_id'
   has_many :users, :through => :permissions
 
-  attr_accessor :description
-
-  def user_id
-
-  end
-
-  def user_id=(user_id)
-
+  def users=(nick_name)
+    user_id = User.find_by_nickname(nick_name)
+    if user_id && permission = permissions.where(user_id: user_id).first
+      permission.update_attributes!(:list => self)
+    end
   end
 end

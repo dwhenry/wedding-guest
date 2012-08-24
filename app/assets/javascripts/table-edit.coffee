@@ -102,7 +102,7 @@ class RowSaver
   saveRecord: ->
     $.ajax({
       url: _row.data('edit-url'),
-      data: {guest: @dataHash()},
+      data: {data: @dataHash()},
       type: 'POST',
       success: @saveSuccess
     });
@@ -110,7 +110,7 @@ class RowSaver
   updateRecord: ->
     $.ajax({
       url: _row.data('edit-url'),
-      data: {guest: @dataHash()},
+      data: {data: @dataHash()},
       type: 'PUT',
       success: @saveSuccess
     });
@@ -130,9 +130,21 @@ class RowSaver
   ensure_up_todate: (response) ->
     for td in @row.children('td')
       $_td = $(td)
-      value = response[response['id']][$_td.data('field')]
-      $_td.html(value)
-      $_td.data('value', value)
+      field_value = response[response['id']][$_td.data('field')]
+      if $.isPlainObject(field_value)
+        $_td.html('')
+        keys = []
+        for own key, value of field_value
+          keys << key
+          div = $('<div></div>')
+          div.html(key + " <a href='" + value + "' class='delete'>(Remove)</a>")
+          $_td.append(div)
+
+        $_td.data('value', ['<-select to add->'] + keys)
+
+      else
+        $_td.html(field_value)
+        $_td.data('value', field_value)
 
 class Editor
   @build: (cell) =>
@@ -229,6 +241,10 @@ $ ->
     static.rowEditor.stop() if static.rowEditor
     static.rowEditor = new RowEditor($(this).parent())
     static.rowEditor.move($(this))
+    false
+
+  ($ 'table.editable tbody').on 'click', 'a', ->
+    window.location.href = this.href;
     false
 
   ($ 'table.editable').on 'keydown', '.editing input, .editing select', (event) ->
