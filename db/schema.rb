@@ -11,16 +11,17 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120821115722) do
+ActiveRecord::Schema.define(:version => 20120824124430) do
 
-  create_table "guest_owners", :force => true do |t|
+  create_table "guest_lists", :force => true do |t|
     t.string   "name"
     t.integer  "wedding_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "description"
   end
 
-  add_index "guest_owners", ["wedding_id"], :name => "index_guest_owners_on_wedding_id"
+  add_index "guest_lists", ["wedding_id"], :name => "index_guest_owners_on_wedding_id"
 
   create_table "guest_permissions", :force => true do |t|
     t.integer  "user_id"
@@ -39,7 +40,7 @@ ActiveRecord::Schema.define(:version => 20120821115722) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "seats"
-    t.integer  "guest_owner_id"
+    t.integer  "guest_list_id"
   end
 
   add_index "guests", ["wedding_id"], :name => "index_guests_on_wedding_id"

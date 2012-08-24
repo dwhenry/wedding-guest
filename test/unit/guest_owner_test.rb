@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class GuestOwnerTest < ActiveSupport::TestCase
+class GuestListTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

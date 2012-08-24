@@ -1,16 +1,16 @@
 class Guest < ActiveRecord::Base
   belongs_to :wedding
-  belongs_to :owner, :class_name => 'GuestOwner', :foreign_key => 'guest_owner_id'
+  belongs_to :list, :class_name => 'GuestList', :foreign_key => 'guest_list_id'
   has_many :permissions, :class_name => 'GuestPermission'
   has_many :users, :through => :permissions
 
   scope :for, lambda {|owner_name|
-    includes(:owner).where(guest_owners: {name: owner_name})
+    includes(:list).where(guest_lists: {name: owner_name})
   }
 
   before_create :make_pending
   validates_uniqueness_of :name, :email, :phone, :scope => :wedding_id
-  validates_presence_of :wedding_id, :guest_owner_id
+  validates_presence_of :wedding_id, :guest_list_id
 
   def make_pending
     self.status = 'Pending'
@@ -32,11 +32,11 @@ class Guest < ActiveRecord::Base
     email || phone
   end
 
-  def owner=(guest_owner)
-    if guest_owner.is_a? GuestOwner
-      self.guest_owner_id = guest_owner.id
+  def list=(guest_list)
+    if guest_list.is_a? GuestList
+      self.guest_list_id = guest_list.id
     else
-      self.guest_owner_id = GuestOwner.find_by_name!(guest_owner).id
+      self.guest_list_id = GuestList.find_by_name!(guest_list).id
     end
   end
 

@@ -4,20 +4,20 @@ class GuestDetails
     @params = params
   end
 
-  def guest_owners
-    @wedding.guest_owners.order(:id).map do |guest_owner|
-      classname = guest_owner.name == owner ? 'selected' : ''
-      [guest_owner, classname]
+  def guest_lists
+    @wedding.guest_lists.order(:id).map do |guest_list|
+      classname = guest_list.name == list_name ? 'selected' : ''
+      [guest_list, classname]
     end
   end
 
   def guests(user)
     if list_owner?(user)
-      case owner
+      case list_name
       when 'All'
         wrap @wedding.guests.order('guests.name')
       else
-        wrap @wedding.guests.for(owner).order('guests.name')
+        wrap @wedding.guests.for(list_name).order('guests.name')
       end
     else
       wrap @wedding.guests.where(:status => 'Confirmed').order('guests.name')
@@ -34,29 +34,29 @@ class GuestDetails
     end
   end
 
-  def owner
-    @params[:owner] || 'All'
+  def list_name
+    @params[:list] || 'All'
   end
 
-  def guest_owner_id
-    @wedding.guest_owners.where(:name => owner).first.id
+  def guest_list_id
+    @wedding.guest_lists.where(:name => list_name).first.id
   end
 
   def can_add_guest?(user)
-    owner != 'All' &&
-    owner == user.permissions.for_wedding(@wedding).first.list.try(:name)
+    list_name != 'All' &&
+    list_name == user.permissions.for_wedding(@wedding).first.list.try(:name)
   end
 
   def can_edit_guest?(user)
     for_wedding = user.permissions.for_wedding(@wedding).first
 
-    (owner == 'All' && for_wedding) ||
-    owner == for_wedding.list.try(:name)
+    (list_name == 'All' && for_wedding) ||
+    list_name == for_wedding.list.try(:name)
   end
 
   class GuestWrapper < SimpleDelegator
     def prefix(tab)
-      (display_owner?(tab) ? "(#{owner.name})" : '')
+      (display_owner?(tab) ? "(#{list.name})" : '')
     end
 
     def full_name(tab)
@@ -68,7 +68,7 @@ class GuestDetails
     end
 
     def display_owner?(tab)
-      (tab.blank? || tab == 'All') && owner.name != 'All'
+      (tab.blank? || tab == 'All') && list.name != 'All'
     end
   end
 end

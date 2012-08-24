@@ -9,6 +9,7 @@ WeddingGuest::Application.routes.draw do
       get 'delete_all'
     end
     resources :guests, :only => [:index, :create, :update]
+    resources :list_managers, :only => [:index, :create, :update]
   end
 
   resources :waste, :only => :index

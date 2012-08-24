@@ -11,6 +11,7 @@ feature 'adding guests', :js => true do
     visit wedding_guests_path(wedding)
 
     can_not_create_guest_for('All')
+
     can_create_guest_with_keyboard_for('Bride')
     can_not_create_guest_for('Groom')
   end
@@ -28,7 +29,7 @@ feature 'adding guests', :js => true do
   scenario 'additional guest owner can add guests to personal list' do
     user
     guest.confirm!
-    list = create(:guest_owner, :wedding => wedding, :name => 'MOB')
+    list = create(:guest_list, :wedding => wedding, :name => 'MOB')
 
     guest.permissions.last.update_attributes(:list => list)
 

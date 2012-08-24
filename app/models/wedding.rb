@@ -6,16 +6,16 @@ class Wedding < ActiveRecord::Base
   default_scope :order => 'weddings.name'
 
   has_many :guests
-  has_many :guest_owners
+  has_many :guest_lists
 
   validates_presence_of :name, :on, :bride, :groom, :bride_email, :groom_email
 
-  after_create :create_guest_owner_list
+  after_create :create_guest_lists
 
-  def create_guest_owner_list
-    all_guests = self.guest_owners.create!(:name => 'All')
-    bride_list = self.guest_owners.create!(:name => 'Bride')
-    groom_list = self.guest_owners.create!(:name => 'Groom')
+  def create_guest_lists
+    all_guests = self.guest_lists.create!(:name => 'All', :description => 'All Guests for the wedding')
+    bride_list = self.guest_lists.create!(:name => 'Bride', :description => "The Bride's guests to the wedding")
+    groom_list = self.guest_lists.create!(:name => 'Groom', :description => "The Groom's guests to the wedding")
 
     create_guest(all_guests, bride, bride_email, bride_list)
     create_guest(all_guests, groom, groom_email, groom_list)
@@ -35,8 +35,8 @@ class Wedding < ActiveRecord::Base
 
 private
 
-  def create_guest(owner, name, email, list)
-    created_guest = owner.guests.create!(
+  def create_guest(list, name, email, guest_list)
+    created_guest = list.guests.create!(
       :name => name,
       :email => email,
       :seats => 1,
@@ -44,7 +44,7 @@ private
     )
 
     if user = User.find_by_email(email)
-      created_guest.permissions.create(:user => user, :list => list)
+      created_guest.permissions.create(:user => user, :list => guest_list)
     end
 
     created_guest.confirm!
@@ -60,11 +60,11 @@ private
     end
 
     def groom_list
-      guest_owners.where(:name => 'Groom').first
+      guest_lists.where(:name => 'Groom').first
     end
 
     def bride_list
-      guest_owners.where(:name => 'Bride').first
+      guest_lists.where(:name => 'Bride').first
     end
   end
 

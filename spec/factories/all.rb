@@ -10,14 +10,14 @@ FactoryGirl.define do
 
   factory :guest do
     association :wedding
-    owner {|g| g.wedding.guest_owners.last }
+    list {|g| g.wedding.guest_lists.last }
     sequence :name do |n|
       "guest_#{n}"
     end
     email {|g| "#{g.name}@test.com" }
   end
 
-  factory :guest_owner do
+  factory :guest_list do
     association :wedding
     sequence :name do |n|
       "list_#{n}"

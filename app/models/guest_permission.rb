@@ -1,7 +1,7 @@
 class GuestPermission < ActiveRecord::Base
   belongs_to :user
   belongs_to :guest
-  belongs_to :list, :class_name => 'GuestOwner'
+  belongs_to :list, :class_name => 'GuestList'
 
   scope :for_wedding, lambda {|wedding|
     includes(:guest).where(['guests.wedding_id = ?', wedding.id])

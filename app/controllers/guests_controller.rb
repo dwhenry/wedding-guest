@@ -4,7 +4,7 @@ class GuestsController < ApplicationController
   end
 
   def create
-    guest = Guest.create(params[:guest].merge(params.slice(:wedding_id, :owner)))
+    guest = Guest.create(params[:guest].merge(params.slice(:wedding_id)))
     render :json => details_for(guest)
   end
 
