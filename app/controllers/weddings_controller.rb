@@ -5,7 +5,7 @@ class WeddingsController < ApplicationController
 
     respond_to do |format|
       format.html { render :index, :layout => 'full_width' }
-      format.json  { render :json => @weddings.map(&:details) }
+      format.json { render :json => @weddings.map{|w| w.details.merge('url' => wedding_path(w)) } }
     end
   end
 

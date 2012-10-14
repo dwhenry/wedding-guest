@@ -38,7 +38,8 @@ gem 'jquery-rails'
 group :test do
   # Pretty printed test output
   gem 'turn', '0.8.2', :require => false
-  gem 'ruby-debug19'
+  # gem 'ruby-debug19'
+  gem 'debugger'
   gem 'rspec-rails'
   gem 'capybara-webkit', '~> 0.7.2'
   gem 'database_cleaner', '~> 0.6.7'

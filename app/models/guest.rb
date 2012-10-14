@@ -9,7 +9,9 @@ class Guest < ActiveRecord::Base
   }
 
   before_create :make_pending
-  validates_uniqueness_of :name, :email, :phone, :scope => :wedding_id
+  validates_uniqueness_of :name, :scope => :wedding_id
+  validates_uniqueness_of :email, :scope => :wedding_id, :unless => lambda {|a| a.email.blank? }
+  validates_uniqueness_of :phone, :scope => :wedding_id, :unless => lambda {|a| a.phone.blank? }
   validates_presence_of :wedding_id, :guest_list_id
 
   def make_pending
