@@ -7,6 +7,7 @@ class Wedding < ActiveRecord::Base
 
   has_many :guests
   has_many :guest_lists, :order => 'created_at'
+  has_many :gifts
 
   validates_presence_of :name, :on, :bride, :groom, :bride_email, :groom_email
 
@@ -21,11 +22,12 @@ class Wedding < ActiveRecord::Base
     create_guest(all_guests, groom, groom_email, groom_list)
   end
 
-  def details
+  def details(current_user=nil)
     {
       :wedding => name,
       :date => on,
-      :image_path => image.thumb.url
+      :image_path => image.thumb.url,
+      :editable => [bride_email, groom_email].include?(current_user.try(:email))
     }
   end
 

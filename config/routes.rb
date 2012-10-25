@@ -12,6 +12,7 @@ WeddingGuest::Application.routes.draw do
     resources :list_managers, :only => [:index, :create, :update] do
       member { get 'owner' }
     end
+    resources :gifts
   end
 
   resources :waste, :only => :index

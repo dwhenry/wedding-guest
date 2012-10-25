@@ -40,7 +40,10 @@ class WeddingsController < ApplicationController
   end
 
   def show
-    @wedding = Wedding.find(params[:id])
+    respond_to do |format|
+      format.html { @wedding = Wedding.find(params[:id]) }
+      format.json { render :json => Wedding.find(params[:id]).details(current_user) }
+    end
   end
 
   def delete_all

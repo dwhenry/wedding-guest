@@ -11,7 +11,19 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120904230828) do
+ActiveRecord::Schema.define(:version => 20121025160017) do
+
+  create_table "gifts", :force => true do |t|
+    t.integer  "wedding_id"
+    t.string   "name"
+    t.string   "code"
+    t.string   "link"
+    t.float    "price"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "gifts", ["wedding_id"], :name => "index_gifts_on_wedding_id"
 
   create_table "guest_lists", :force => true do |t|
     t.string   "name"
