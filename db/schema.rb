@@ -11,7 +11,21 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121025160017) do
+ActiveRecord::Schema.define(:version => 20121027180604) do
+
+  create_table "addresses", :force => true do |t|
+    t.integer  "wedding_id"
+    t.string   "address_type"
+    t.string   "name"
+    t.string   "line_1"
+    t.string   "line_2"
+    t.string   "post_code"
+    t.string   "map_ref"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "addresses", ["wedding_id"], :name => "index_addresses_on_wedding_id"
 
   create_table "gifts", :force => true do |t|
     t.integer  "wedding_id"

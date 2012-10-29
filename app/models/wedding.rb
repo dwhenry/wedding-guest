@@ -6,6 +6,7 @@ class Wedding < ActiveRecord::Base
   default_scope :order => 'weddings.name'
 
   has_many :guests
+  has_many :addresses
   has_many :guest_lists, :order => 'created_at'
   has_many :gifts
 

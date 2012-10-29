@@ -17,6 +17,27 @@ h2 {
   margin: 5px 0 10px 0;
 }
 
+#new_address, .address {
+  .container {
+    overflow: hidden;
+  }
+
+  .label {
+    float: left;
+    width: 150px;
+    margin: 5px 0 0;
+  }
+  .value {
+    width: 300px;
+    display: inline-block;
+    margin: 0;
+  }
+}
+
+.address {
+  margin-bottom: 20px
+}
+
 input {
   font-size: 16px;
 }
@@ -50,5 +71,24 @@ input {
   padding-right: 10px;
   img {
     width: 20px;
+  }
+}
+
+.title {
+  font-weight: bold;
+  .actions {
+    font-weight: normal;
+    margin-left: 5px;
+    font-size: 80%;
+    display: inline-block;
+    vertical-align: top;
+
+    a, a:visited, a:hover { color: grey }
+  }
+}
+
+div:hover > .title > .actions  {
+  a, a:visited, a:hover {
+    color: blue
   }
 }

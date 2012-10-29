@@ -1,0 +1,26 @@
+= javascript_include_tag "address"
+
+- content_for :head do
+  == #{@wedding.name}'s
+  Wedding
+- content_for :buttons do
+  = link_to :weddings, weddings_path
+
+= render :partial => 'weddings/sidebar'
+
+- @addresses.each do |address|
+  = render :partial => 'show', :locals => {:address => address}
+
+#new_address
+  .title
+    New Address
+  = form_for @address, :url => wedding_addresses_path(@wedding) do |f|
+    = f.hidden_field :wedding_id
+    = labeled_text_field_with_error f, :address_type, :label => 'Address Type'
+    = labeled_text_field_with_error f, :name
+    = labeled_text_field_with_error f, :line_1, :label => 'Address'
+    = labeled_text_field_with_error f, :line_2, :label => ' '
+    = labeled_text_field_with_error f, :post_code, :label => 'Post code'
+    = labeled_text_field_with_error f, :map_ref, :label => 'Google map ref'
+
+    = f.submit 'Add Address', :id => 'add_address'
