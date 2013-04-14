@@ -1,9 +1,0 @@
-LOG:  database system was shut down at 2012-07-17 21:36:24 BST
-LOG:  autovacuum launcher started
-LOG:  database system is ready to accept connections
-FATAL:  database "fredbook" does not exist
-LOG:  received fast shutdown request
-LOG:  aborting any active transactions
-LOG:  autovacuum launcher shutting down
-LOG:  shutting down
-LOG:  database system is shut down
