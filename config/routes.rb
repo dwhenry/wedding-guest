@@ -25,6 +25,8 @@ WeddingGuest::Application.routes.draw do
     end
   end
 
+  match ':wedding_name' => 'external#show'
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

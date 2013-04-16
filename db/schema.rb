@@ -21,8 +21,8 @@ ActiveRecord::Schema.define(:version => 20121027180604) do
     t.string   "line_2"
     t.string   "post_code"
     t.string   "map_ref"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
   end
 
   add_index "addresses", ["wedding_id"], :name => "index_addresses_on_wedding_id"
@@ -33,8 +33,8 @@ ActiveRecord::Schema.define(:version => 20121027180604) do
     t.string   "code"
     t.string   "link"
     t.float    "price"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   add_index "gifts", ["wedding_id"], :name => "index_gifts_on_wedding_id"
@@ -42,8 +42,8 @@ ActiveRecord::Schema.define(:version => 20121027180604) do
   create_table "guest_lists", :force => true do |t|
     t.string   "name"
     t.integer  "wedding_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
     t.string   "description"
   end
 
@@ -53,8 +53,8 @@ ActiveRecord::Schema.define(:version => 20121027180604) do
     t.integer  "user_id"
     t.integer  "guest_id"
     t.integer  "list_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "guests", :force => true do |t|
@@ -63,8 +63,8 @@ ActiveRecord::Schema.define(:version => 20121027180604) do
     t.string   "email"
     t.string   "status"
     t.integer  "wedding_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
     t.integer  "seats"
     t.integer  "guest_list_id"
   end
@@ -83,8 +83,8 @@ ActiveRecord::Schema.define(:version => 20121027180604) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                             :null => false
+    t.datetime "updated_at",                             :null => false
     t.string   "authentication_token"
   end
 
@@ -95,8 +95,8 @@ ActiveRecord::Schema.define(:version => 20121027180604) do
     t.string   "bride"
     t.string   "groom"
     t.date     "on"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
     t.string   "image"
     t.string   "name"
     t.string   "groom_email"

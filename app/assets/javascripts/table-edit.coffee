@@ -1,4 +1,4 @@
-static = $(this)
+$static = $(this)
 @rowEditor = null;
 
 class RowEditor
@@ -45,7 +45,7 @@ class RowEditor
   stop: (cancel) ->
     @stopCellEdit()
     @row.removeClass('editing')
-    static.rowEditor = null
+    $static.rowEditor = null
     if cancel
       @row.remove()
 
@@ -122,7 +122,7 @@ class RowSaver
       @ensure_up_todate(response)
       if _row.parent().find('.new_row')
         builder = new RowBuilder('.guests')
-        static.rowEditor = new RowEditor(builder.row)
+        $static.rowEditor = new RowEditor(builder.row)
     else
       $(@row.children('td').last()).html('Error')
       alert(response['errors'])
@@ -224,23 +224,23 @@ class RowBuilder
 
 $ ->
   ($ 'body').click ->
-    if static.rowEditor
-      static.rowEditor.finalize()
+    if $static.rowEditor
+      $static.rowEditor.finalize()
 
   ($ 'table.editable tfoot tr').click ->
-    if static.rowEditor
-      return if static.rowEditor.pending()
-      static.rowEditor.stop()
+    if $static.rowEditor
+      return if $static.rowEditor.pending()
+      $static.rowEditor.stop()
     if $(this).data('table')
       builder = new RowBuilder($(this).data('table'))
-      static.rowEditor = new RowEditor(builder.row)
+      $static.rowEditor = new RowEditor(builder.row)
     false
 
 
   ($ 'table.editable tbody').on 'click', 'td', ->
-    static.rowEditor.stop() if static.rowEditor
-    static.rowEditor = new RowEditor($(this).parent())
-    static.rowEditor.move($(this))
+    $static.rowEditor.stop() if $static.rowEditor
+    $static.rowEditor = new RowEditor($(this).parent())
+    $static.rowEditor.move($(this))
     false
 
   ($ 'table.editable tbody').on 'click', 'a', ->
@@ -248,7 +248,7 @@ $ ->
     false
 
   ($ 'table.editable').on 'keydown', '.editing input, .editing select', (event) ->
-    static.rowEditor.processKey(event)
+    $static.rowEditor.processKey(event)
 
   ($ 'table.editable').each ->
     $(this).after($('<input style="display: none/>'))
