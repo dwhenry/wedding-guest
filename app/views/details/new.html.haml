@@ -1,0 +1,18 @@
+- content_for :head do
+  Details For
+  == #{@wedding.name}'s
+  Wedding
+
+- content_for :buttons do
+  = link_to :edit, weddings_path
+  = link_to :details, wedding_details_path(@wedding)
+  = link_to :weddings, weddings_path
+
+= render :partial => 'weddings/sidebar'
+
+= form_for [@wedding, @detail] do |f|
+  = render :partial => 'fields', :locals => {:f => f}
+
+  .button
+    = f.submit :create
+

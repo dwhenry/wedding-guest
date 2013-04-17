@@ -47,3 +47,8 @@
   On
 .value
   = @wedding.on
+
+.label
+  URL
+.value
+  = link_to external_url(:wedding_name => @wedding.param_name), external_url(:wedding_name => @wedding.param_name)

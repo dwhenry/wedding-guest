@@ -4,8 +4,13 @@
       Details
     %li{:'data-url' => wedding_guests_path(@wedding)}
       Guests
-    %li Gifts
+    %li{:'data-url' => '/gifts'}
+      Gifts
     %li{:'data-url' => wedding_addresses_path(@wedding)}
       Addresses
-    %li Hotels
-    %li Taxi's
+    %li{:'data-url' => '/hotel'}
+      Hotels
+    %li{:'data-url' => '/taxi'}
+      Taxi's
+    %li{:'data-url' => wedding_details_path(@wedding)}
+      External Details

@@ -3,9 +3,13 @@ class WeddingsController < ApplicationController
   def index
     @weddings = current_user.weddings.where("guests.status = 'Confirmed'")
 
-    respond_to do |format|
-      format.html { render :index, :layout => 'full_width' }
-      format.json { render :json => @weddings.map{|w| w.details.merge('url' => wedding_path(w)) } }
+    if @weddings.size == 1
+      redirect_to wedding_path(@weddings.first)
+    else
+      respond_to do |format|
+        format.html { render :index, :layout => 'full_width' }
+        format.json { render :json => @weddings.map{|w| w.details.merge('url' => wedding_path(w)) } }
+      end
     end
   end
 

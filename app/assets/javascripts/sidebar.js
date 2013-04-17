@@ -10,7 +10,7 @@ $(function($) {
   });
 
   $('#sidebar li').each(function() {
-    if(window.location.pathname == $(this).data('url'))
+    if(window.location.pathname.replace('/new', '') == $(this).data('url'))
       $(this).addClass('selected');
   })
 });

@@ -1,0 +1,31 @@
+- content_for :head do
+	Details For
+  == #{@wedding.name}'s
+  Wedding
+
+- content_for :buttons do
+	= link_to :edit, weddings_path
+	= link_to :details, details_path(:wedding_id => @wedding)
+  = link_to :weddings, weddings_path
+
+= render :partial => 'weddings/sidebar'
+
+.image
+  .label
+    .float_right
+      = link_to image_tag('/rotate_anticlockwise.png'), rotate_image_wedding_path(@wedding, :angle => -90)
+      = link_to image_tag('/rotate_clockwise.png'), rotate_image_wedding_path(@wedding, :angle => 90)
+    Image
+  .value
+    - if @wedding.image?
+      .tag{:style => "background-image: url(#{@detail.image})"}
+
+.label
+  Type
+.value
+  = @detail.detail_type
+
+.label
+  Text
+.value
+  = @detail.detail_text

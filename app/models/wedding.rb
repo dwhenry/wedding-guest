@@ -1,4 +1,3 @@
-require 'fields'
 class Wedding < ActiveRecord::Base
   extend Fields
   formatted_date :on
@@ -9,10 +8,16 @@ class Wedding < ActiveRecord::Base
   has_many :addresses
   has_many :guest_lists, :order => 'created_at'
   has_many :gifts
+  has_many :details
 
   validates_presence_of :name, :on, :bride, :groom, :bride_email, :groom_email
-
+  validates_uniqueness_of :param_name
   after_create :create_guest_lists
+  before_save :set_param_name
+
+  def set_param_name
+    self.param_name = name.downcase.gsub(/ /, '_')
+  end
 
   def create_guest_lists
     all_guests = self.guest_lists.create!(:name => 'All', :description => 'All Guests for the wedding')

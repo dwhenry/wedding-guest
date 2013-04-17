@@ -1,5 +1,5 @@
 module ApplicationHelper
-  [:text_field, :email_field, :password_field].each do |field_type|
+  [:text_field, :email_field, :password_field, :selecter, :text_area].each do |field_type|
     define_method :"labeled_#{field_type}_with_error" do |form, field, options={}|
       builder = LabeledFieldWithError.new(form)
       builder.write(field_type, field, options)
@@ -45,6 +45,15 @@ module ApplicationHelper
         ),
         :class => 'container'
       )
+    end
+
+    def selecter(field, options)
+      items = options.delete(:items) || []
+      @delegate_sd_obj.select field, items
+    end
+
+    def text_area(field, options)
+      super(field, options.merge(rows: 5))
     end
   end
 end

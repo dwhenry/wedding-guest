@@ -1,0 +1,26 @@
+- content_for :head do
+  Details For
+  == #{@wedding.name}'s
+  Wedding
+
+- content_for :buttons do
+  = link_to 'add detail', new_wedding_detail_path(@wedding)
+  |
+  = link_to :weddings, weddings_path
+
+
+= render :partial => 'weddings/sidebar'
+
+%table
+  %thead
+    %tr
+      %th Type
+      %th Text
+      %th Image
+
+  %tbody
+    - @details.each do |detail|
+      %tr{:'data-url' => wedding_detail_path(@wedding, detail)}
+        %td= detail.type
+        %td= detail.text
+        %td.center= image_tag(detail.image.thumb) if detail.image?
