@@ -14,7 +14,7 @@ WeddingGuest::Application.routes.draw do
     end
     resources :gifts, :only => [:index]
     resources :addresses
-    resources :details
+    resources :details, :except => [:show]
   end
 
   resources :waste, :only => :index

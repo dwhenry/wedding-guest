@@ -10,7 +10,7 @@ class Detail < ActiveRecord::Base
     HOW_WE_MET = 'how_we_met'
   ]
 
-  attr_accessible :detail_text, :detail_type, :image, :wedding_id
+  attr_accessible :detail_text, :detail_type, :wedding_id, :image_cache
 
   belongs_to :wedding
 

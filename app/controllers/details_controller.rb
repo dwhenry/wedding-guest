@@ -11,18 +11,6 @@ class DetailsController < ApplicationController
     end
   end
 
-  # GET /details/1
-  # GET /details/1.json
-  def show
-    @wedding = Wedding.find(params[:wedding_id])
-    @detail = Detail.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @detail }
-    end
-  end
-
   # GET /details/new
   # GET /details/new.json
   def new
@@ -49,7 +37,7 @@ class DetailsController < ApplicationController
 
     respond_to do |format|
       if @detail.save
-        format.html { redirect_to @detail, notice: 'Detail was successfully created.' }
+        format.html { redirect_to wedding_details_path(@wedding), notice: 'Detail was successfully created.' }
         format.json { render json: @detail, status: :created, location: @detail }
       else
         format.html { render action: "new" }
@@ -66,7 +54,7 @@ class DetailsController < ApplicationController
 
     respond_to do |format|
       if @detail.update_attributes(params[:detail])
-        format.html { redirect_to @detail, notice: 'Detail was successfully updated.' }
+        format.html { redirect_to wedding_details_path(@wedding), notice: 'Detail was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -78,11 +66,12 @@ class DetailsController < ApplicationController
   # DELETE /details/1
   # DELETE /details/1.json
   def destroy
+    @wedding = Wedding.find(params[:wedding_id])
     @detail = Detail.find(params[:id])
     @detail.destroy
 
     respond_to do |format|
-      format.html { redirect_to details_url }
+      format.html { redirect_to wedding_details_url(@wedding) }
       format.json { head :no_content }
     end
   end
