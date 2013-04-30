@@ -9,4 +9,9 @@ class ExternalController < ApplicationController
       redirect_to new_user_session_path
     end
   end
+
+  def home
+    @wedding = Wedding.find_by_param_name(params[:wedding_name])
+    @home = @wedding.text(Text::HOME)
+  end
 end

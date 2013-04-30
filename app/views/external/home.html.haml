@@ -1,0 +1,16 @@
+- content_for :head do
+  == #{@wedding.name}'s
+  Wedding
+- content_for :buttons do
+  - if current_user
+    = link_to :edit, edit_wedding_path(@wedding)
+    |
+    = link_to :weddings, weddings_path
+
+= render :partial => 'sidebar'
+
+%h2
+  Our Wedding
+
+- @home.split("\n").each do |paragraph|
+  %p= paragraph

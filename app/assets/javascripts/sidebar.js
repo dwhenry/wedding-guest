@@ -10,7 +10,9 @@ $(function($) {
   });
 
   $('#sidebar li').each(function() {
-    if(window.location.pathname.replace('/new', '') == $(this).data('url'))
+    var pattern = new RegExp($(this).data('url') + '(/\\d+(/[^/]*|)|)$');
+    // console.log(pattern);
+    if(window.location.pathname.match(pattern))
       $(this).addClass('selected');
   })
 });

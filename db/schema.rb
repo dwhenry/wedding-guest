@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130417203030) do
+ActiveRecord::Schema.define(:version => 20130418210646) do
 
   create_table "addresses", :force => true do |t|
     t.integer  "wedding_id"
@@ -26,15 +26,6 @@ ActiveRecord::Schema.define(:version => 20130417203030) do
   end
 
   add_index "addresses", ["wedding_id"], :name => "index_addresses_on_wedding_id"
-
-  create_table "details", :force => true do |t|
-    t.integer  "wedding_id"
-    t.string   "detail_type"
-    t.text     "detail_text"
-    t.string   "image"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
-  end
 
   create_table "gifts", :force => true do |t|
     t.integer  "wedding_id"
@@ -79,6 +70,15 @@ ActiveRecord::Schema.define(:version => 20130417203030) do
   end
 
   add_index "guests", ["wedding_id"], :name => "index_guests_on_wedding_id"
+
+  create_table "texts", :force => true do |t|
+    t.integer  "wedding_id"
+    t.string   "detail_type"
+    t.text     "detail_text"
+    t.string   "image"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
 
   create_table "users", :force => true do |t|
     t.string   "nickname",               :default => "", :null => false

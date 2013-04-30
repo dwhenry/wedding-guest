@@ -14,7 +14,7 @@ WeddingGuest::Application.routes.draw do
     end
     resources :gifts, :only => [:index]
     resources :addresses
-    resources :details, :except => [:show]
+    resources :texts, :except => [:show]
   end
 
   resources :waste, :only => :index
@@ -27,6 +27,7 @@ WeddingGuest::Application.routes.draw do
   end
 
   match ':wedding_name' => 'external#show', :as => :external
+  match ':wedding_name/home' => 'external#home', :as => :external_home
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

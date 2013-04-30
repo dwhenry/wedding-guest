@@ -2,9 +2,10 @@
   == #{@wedding.name}'s
   Wedding
 - content_for :buttons do
-  = link_to :edit, edit_wedding_path(@wedding)
-  |
-  = link_to :weddings, weddings_path
+  - if current_user
+    = link_to :edit, edit_wedding_path(@wedding)
+    |
+    = link_to :weddings, weddings_path
 
 = render :partial => 'sidebar'
 

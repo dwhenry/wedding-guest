@@ -1,4 +1,4 @@
-class Detail < ActiveRecord::Base
+class Text < ActiveRecord::Base
   extend Fields
   prettify_string :detail_type
   mount_uploader :image, BrideGroomUploader
@@ -15,9 +15,11 @@ class Detail < ActiveRecord::Base
   belongs_to :wedding
 
   validates_uniqueness_of :detail_type, :scope => :wedding_id
+  validates_presence_of :detail_type, :wedding_id, :detail_text
 
-  def self.types
-    DETAIL_TYPES.sort.map do |detail_type|
+  def types
+    remainig_types = (DETAIL_TYPES - wedding.texts.map(&:detail_type)) | [detail_type]
+    remainig_types.compact.sort.map do |detail_type|
       [
         detail_type.gsub(/_/, ' ').titlecase,
         detail_type

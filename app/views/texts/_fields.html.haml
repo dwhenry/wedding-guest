@@ -1,3 +1,4 @@
+= f.hidden_field :wedding_id
 .image
   .label
     = f.label :image
@@ -8,7 +9,6 @@
     = f.file_field :image
     = f.hidden_field :image_cache
 
-
-= labeled_selecter_with_error(f, :detail_type, label: 'Type', items: Detail.types)
+= labeled_selecter_with_error(f, :detail_type, label: 'Type', items: @text.types)
 = labeled_text_area_with_error(f, :detail_text, label: 'Text')
 
