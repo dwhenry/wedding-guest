@@ -26,8 +26,9 @@ WeddingGuest::Application.routes.draw do
     end
   end
 
-  match ':wedding_name' => 'external#show', :as => :external
+  match ':wedding_name' => 'external#home', :as => :external
   match ':wedding_name/home' => 'external#home', :as => :external_home
+  match ':wedding_name/about_us' => 'external#about_us', :as => :external_about_us
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

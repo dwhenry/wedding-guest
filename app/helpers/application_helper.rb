@@ -15,6 +15,15 @@ module ApplicationHelper
     )
   end
 
+  def paragraph_write(title, text)
+    return '' unless text.presence
+
+    content_tag('h2', title) +
+    text.split("\n").map do |paragraph|
+      content_tag('p', paragraph)
+    end.join.html_safe
+  end
+
   class LabeledFieldWithError < SimpleDelegator
     include ActionView::Helpers::TagHelper
     def errors(field)

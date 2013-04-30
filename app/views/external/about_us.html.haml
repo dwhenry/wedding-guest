@@ -9,4 +9,8 @@
 
 = render :partial => 'sidebar'
 
-= paragraph_write('Our Wedding', @home)
+= paragraph_write(@groom, @about_him)
+= paragraph_write(@bride, @about_her)
+
+= paragraph_write('How we met', @how_we_met)
+= paragraph_write('The Proposal', @proposal)

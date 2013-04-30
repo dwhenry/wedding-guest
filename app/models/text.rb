@@ -7,7 +7,8 @@ class Text < ActiveRecord::Base
     HOME = 'home',
     ABOUT_BRIDE = 'about_the_bride',
     ABOUT_GROOM = 'about_the_groom',
-    HOW_WE_MET = 'how_we_met'
+    HOW_WE_MET = 'how_we_met',
+    PROPOSAL = 'proposal'
   ]
 
   attr_accessible :detail_text, :detail_type, :wedding_id, :image_cache
