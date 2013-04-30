@@ -198,6 +198,7 @@ DEPENDENCIES
   rails
   rmagick
   rspec-rails
+  sass
   sass-rails (~> 3.2.3)
   thin
   turn (= 0.8.2)
