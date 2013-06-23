@@ -28,4 +28,17 @@ class Detail < ActiveRecord::Base
   def formatting
     FORMATS[self.formatting_class]
   end
+
+  def move_to(position)
+    # binding.pry
+    move_to = wedding.page_details.for(raw_page_name)[position]
+    move_to_position = move_to.order
+    current_position = self.order
+
+    Detail.transaction do
+      move_to.update_attributes(order: -1)
+      update_attributes(order: position)
+      move_to.update_attributes(order: current_position)
+    end
+  end
 end

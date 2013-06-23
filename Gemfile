@@ -36,6 +36,11 @@ gem 'jquery-rails'
 # To use debugger
 # gem 'ruby-debug19', :require => 'ruby-debug'
 
+group :development, :test do
+  gem 'pry'
+  gem 'pry-nav'
+end
+
 group :test do
   # Pretty printed test output
   gem 'turn', '0.8.2', :require => false

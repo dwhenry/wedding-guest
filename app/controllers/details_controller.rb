@@ -1,4 +1,11 @@
 class DetailsController < ApplicationController
+  def sort
+    wedding = Wedding.find(params[:wedding_id])
+    detail = Detail.find(params[:id])
+
+    render json: { success: detail.move_to(params[:position].to_i) }
+  end
+
   # GET /texts
   # GET /texts.json
   def index

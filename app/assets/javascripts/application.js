@@ -12,3 +12,4 @@
 //= require sidebar
 //= require table-edit
 //= require table
+//= require jquery-ui-1.10.3.custom.min

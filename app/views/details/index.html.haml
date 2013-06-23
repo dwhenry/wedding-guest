@@ -20,11 +20,34 @@
       %th Image
       %th
 
-  %tbody
-    - @details.each do |detail|
-      %tr{:'data-url' => edit_wedding_detail_path(@wedding, detail)}
-        %td= detail.page_name
-        %td= detail.text.first(90).gsub(/\n/,'<br/>').html_safe + '..'
-        %td= detail.formatting
-        %td.center= image_tag(detail.image.thumb) if detail.image?
-        %td=link_to :delete, wedding_detail_path(@wedding, detail), confirm: 'Are you sure?', method: :delete
+  - @details.group_by(&:raw_page_name).each do |page_name, details|
+    %tbody{:class => page_name}
+      - details.each do |detail|
+        %tr{data: {id: detail.id, url: edit_wedding_detail_path(@wedding, detail)}}
+          %td= detail.page_name
+          %td= detail.text.first(90).gsub(/\n/,'<br/>').html_safe + '..'
+          %td= detail.formatting
+          %td.center= image_tag(detail.image.thumb) if detail.image?
+          %td= link_to :delete, wedding_detail_path(@wedding, detail), confirm: 'Are you sure?', method: :delete
+
+:javascript
+  $('table tbody').each(function() {
+    el = $(this);
+    if(el.children().size() > 1) {
+      el
+      .sortable({ axis: "y", containment: el })
+      .on('sortstop', function(event, ui) {
+        position  = ui.item.parent().children().index(ui.item);
+        id        = ui.item.data('id');
+        $.ajax({
+          url: '/weddings/#{@wedding.id}/details/' + id + '/sort',
+          type: 'PUT',
+          data: {
+            position: position
+          }
+        }).fail(function() {
+          alert('Position Update failed.  Reload page and try again');
+        })
+      })
+    }
+  })
