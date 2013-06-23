@@ -2,9 +2,9 @@
   %h3
     The Wedding
   %ul
-    %li{:'data-url' => external_home_path(@wedding.param_name)}
+    %li{:'data-url' => external_path(@wedding.param_name, name: :home )}
       Home
-    %li{:'data-url' => external_about_us_path(@wedding.param_name)}
+    %li{:'data-url' => external_path(@wedding.param_name, name: :about_us )}
       About Us
     %li Ceremony & Reception
 

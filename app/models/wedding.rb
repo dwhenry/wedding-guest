@@ -6,9 +6,9 @@ class Wedding < ActiveRecord::Base
 
   has_many :guests
   has_many :addresses
-  has_many :guest_lists, :order => 'created_at'
+  has_many :guest_lists, order: 'created_at'
   has_many :gifts
-  has_many :texts
+  has_many :page_details, order: ['page_name', '"order"'], class_name: 'Detail'
 
   validates_presence_of :name, :on, :bride, :groom, :bride_email, :groom_email
   validates_uniqueness_of :param_name

@@ -15,13 +15,26 @@ module ApplicationHelper
     )
   end
 
-  def paragraph_write(title, text)
-    return '' unless text.presence
+  def page_writer(page_name, wedding)
+    elements = wedding.page_details.for(page_name)
+    return '' unless elements.presence
 
-    content_tag('h2', title) +
-    text.split("\n").map do |paragraph|
-      content_tag('p', paragraph)
+    elements.map do |element|
+      content_tag('div', :class => element.formatting_class) do
+        element_writer(element)
+      end
     end.join.html_safe
+  end
+
+  def element_writer(element)
+    content = []
+    if element.image?
+      content << content_tag('div', '', :class => "tag", style:  "background-image: url(#{@wedding.image_url})")
+    end
+    element.text.split(/[\r\n]+/).each do |paragraph|
+      content << content_tag('p', paragraph)
+    end
+    content.join.html_safe
   end
 
   class LabeledFieldWithError < SimpleDelegator
@@ -58,7 +71,7 @@ module ApplicationHelper
 
     def selecter(field, options)
       items = options.delete(:items) || []
-      @delegate_sd_obj.select field, items
+      @delegate_sd_obj.select field, items, options
     end
 
     def text_area(field, options)

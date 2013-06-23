@@ -1,0 +1,30 @@
+- content_for :head do
+  Texts For
+  == #{@wedding.name}'s
+  Wedding
+
+- content_for :buttons do
+  = link_to 'add text', new_wedding_detail_path(@wedding)
+  |
+  = link_to :weddings, weddings_path
+
+
+= render :partial => 'weddings/sidebar'
+
+%table
+  %thead
+    %tr
+      %th Page
+      %th Text
+      %th Formatting
+      %th Image
+      %th
+
+  %tbody
+    - @details.each do |detail|
+      %tr{:'data-url' => edit_wedding_detail_path(@wedding, detail)}
+        %td= detail.page_name
+        %td= detail.text.first(90).gsub(/\n/,'<br/>').html_safe + '..'
+        %td= detail.formatting
+        %td.center= image_tag(detail.image.thumb) if detail.image?
+        %td=link_to :delete, wedding_detail_path(@wedding, detail), confirm: 'Are you sure?', method: :delete

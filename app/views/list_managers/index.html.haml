@@ -1,5 +1,5 @@
 - content_for :head do
-  == #{@wedding.name}'s
+  == #{@wedding.name.titlecase}'s
   Wedding
 - content_for :buttons do
   = link_to :weddings, weddings_path

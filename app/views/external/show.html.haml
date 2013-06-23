@@ -1,5 +1,5 @@
 - content_for :head do
-  == #{@wedding.name}'s
+  == #{@wedding.name.titlecase}'s
   Wedding
 - content_for :buttons do
   - if current_user
@@ -9,42 +9,4 @@
 
 = render :partial => 'sidebar'
 
-.image
-  .label
-    .float_right
-      = link_to image_tag('/rotate_anticlockwise.png'), rotate_image_wedding_path(@wedding, :angle => -90)
-      = link_to image_tag('/rotate_clockwise.png'), rotate_image_wedding_path(@wedding, :angle => 90)
-    Image
-  .value
-    - if @wedding.image?
-      .tag{:style => "background-image: url(#{@wedding.image_url})"}
-
-.label
-  Name
-.value
-  = @wedding.name
-
-.label
-  Bride
-.value
-  = @wedding.bride
-
-.label
-  Bride Email
-.value
-  = @wedding.bride_email
-
-.label
-  Groom
-.value
-  = @wedding.groom
-
-.label
-  Groom Email
-.value
-  = @wedding.groom_email
-
-.label
-  On
-.value
-  = @wedding.on
+= page_writer(@name, @wedding)

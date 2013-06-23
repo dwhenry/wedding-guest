@@ -1,0 +1,15 @@
+= f.hidden_field :wedding_id
+.image
+  .label
+    = f.label :image
+  .value
+    - if @wedding.image?
+      .tag{:style => "background-image: url(#{@wedding.image_url})"}
+  .value
+    = f.file_field :image
+    = f.hidden_field :image_cache
+
+= labeled_selecter_with_error(f, :page_name, label: 'Page', items: Detail::PAGES, prompt: '<- select page ->')
+= labeled_selecter_with_error(f, :formatting_class, label: 'Format', items: Detail::FORMATS.invert, prompt: '<- select format ->')
+= labeled_text_area_with_error(f, :text, label: 'Text')
+
