@@ -8,7 +8,7 @@ class ExternalController < ApplicationController
     if @wedding.nil?
       redirect_to new_user_session_path
     else
-      @name = params[:name] || :home
+      @name = params[:name] || 'home'
     end
   end
 end
