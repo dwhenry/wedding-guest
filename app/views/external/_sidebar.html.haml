@@ -6,15 +6,22 @@
       Home
     %li{:'data-url' => external_path(@wedding.param_name, name: :about_us )}
       About Us
-    %li Ceremony & Reception
+    %li{:'data-url' => external_path(@wedding.param_name, name: :ceremony_and_reception )}
+      Ceremony & Reception
 
-    %li Timetable
-    %li Directions
-    %li The Day After
+    %li{:'data-url' => external_path(@wedding.param_name, name: :timetable )}
+      Timetable
+    %li{:'data-url' => external_path(@wedding.param_name, name: :directions )}
+      Directions
+    %li{:'data-url' => external_path(@wedding.param_name, name: :day_after )}
+      The Day After
 
   %h3
     Organisation
   %ul
-    %li RSVP Online
-    %li Gift List
-    %li Where To Stay
+    %li{:'data-url' => external_path(@wedding.param_name, name: :rsvp )}
+      RSVP Online
+    %li{:'data-url' => external_path(@wedding.param_name, name: :gift_list )}
+      Gift List
+    %li{:'data-url' => external_path(@wedding.param_name, name: :where_to_stay )}
+      Where To Stay

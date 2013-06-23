@@ -16,14 +16,22 @@ module ApplicationHelper
   end
 
   def page_writer(page_name, wedding)
+    title = content_tag('div', :class => 'TITLE') do
+      page_name.gsub(/_/, ' ').titlecase
+    end
     elements = wedding.page_details.for(page_name)
-    return '' unless elements.presence
-
-    elements.map do |element|
-      content_tag('div', :class => element.formatting_class) do
-        element_writer(element)
-      end
-    end.join.html_safe
+    if elements.presence
+      title +
+      elements.map do |element|
+        content_tag('div', :class => element.formatting_class) do
+          element_writer(element)
+        end
+      end.join.html_safe
+    else
+      return title +
+             content_tag('div', "Under Construction", :class => 'PENDING') +
+             content_tag('div', "Please check back soon", :class => 'PENDING')
+    end
   end
 
   def element_writer(element)

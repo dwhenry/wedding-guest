@@ -22,7 +22,8 @@ class Detail < ActiveRecord::Base
   scope :for, ->(page_name) { where(page_name: page_name) }
 
   def ensure_ordered
-    self.order ||= (wedding.page_details.for(self.page_name).maximum(:order) || 0) + 1
+    self.order = nil if changed.include?('page_name')
+    self.order ||= (wedding.page_details.for(self.raw_page_name).maximum(:order) || 0) + 1
   end
 
   def formatting
@@ -30,7 +31,6 @@ class Detail < ActiveRecord::Base
   end
 
   def move_to(position)
-    # binding.pry
     move_to = wedding.page_details.for(raw_page_name)[position]
     move_to_position = move_to.order
     current_position = self.order

@@ -1,3 +1,4 @@
+/ = @detail.errors.full_messages
 = f.hidden_field :wedding_id
 .image
   .label
@@ -9,7 +10,7 @@
     = f.file_field :image
     = f.hidden_field :image_cache
 
-= labeled_selecter_with_error(f, :page_name, label: 'Page', items: Detail::PAGES, prompt: '<- select page ->')
-= labeled_selecter_with_error(f, :formatting_class, label: 'Format', items: Detail::FORMATS.invert, prompt: '<- select format ->')
+= labeled_selecter_with_error(f, :page_name, label: 'Page', items: Detail::PAGES, include_blank: '<- select page ->')
+= labeled_selecter_with_error(f, :formatting_class, label: 'Format', items: Detail::FORMATS.invert, include_blank: '<- select format ->')
 = labeled_text_area_with_error(f, :text, label: 'Text')
 
