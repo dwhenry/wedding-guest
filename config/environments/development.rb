@@ -22,6 +22,9 @@ WeddingGuest::Application.configure do
   # config.action_controller.perform_caching = true # => local cache testing
   config.action_controller.perform_caching = false
 
+  # config.cache_store = :redis_store, 'localhost'
+  config.cache_store = :memory_store, { size: 64.megabytes }
+
   # Don't care if the mailer can't send
   config.action_mailer.raise_delivery_errors = false
 
@@ -36,7 +39,5 @@ WeddingGuest::Application.configure do
 
   # Expands the lines which load the assets
   config.assets.debug = true
-
-  config.cache_store = :memory_store, { size: 64.megabytes }
 end
 require 'ruby-debug'
