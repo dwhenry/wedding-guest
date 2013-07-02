@@ -6,13 +6,13 @@ gem 'rails'
 # gem 'rails',     :git => 'git://github.com/rails/rails.git'
 
 gem 'pg'
-gem 'thin'
 gem 'haml'
 gem 'sass'
 gem 'carrierwave'
 gem 'rmagick'
 gem 'jquery-ui-rails'
 gem 'devise'
+gem 'unicorn'
 
 # Gems used only for assets and not required
 # in production environments by default.
