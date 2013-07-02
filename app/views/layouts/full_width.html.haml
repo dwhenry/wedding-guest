@@ -1,31 +1,31 @@
 !!!
 %html
-%head
-  %title Wedding Guest
-  = stylesheet_link_tag    "application"
-  = javascript_include_tag "application"
-  = javascript_include_tag "testing/keyboard" if Rails.env.test?
-  = csrf_meta_tags
+  %head
+    %title Wedding Guest
+    = stylesheet_link_tag    "application"
+    = javascript_include_tag "application"
+    = javascript_include_tag "testing/keyboard" if Rails.env.test?
+    = csrf_meta_tags
+    %link{rel: "shortcut icon", href: "/wedding-small.ico"}
+  %body
+    #cover
+      #screen
+        #padding
+          #head
+            #buttons
+              - if current_user
+                = current_user.nickname
+                |
+                = yield :buttons
+                |
+                = button_to :logout, destroy_user_session_path, :method => 'delete'
+            %h1= yield :head
 
-%body
-  #cover
-    #screen
-      #padding
-        #head
-          #buttons
-            - if current_user
-              = current_user.nickname
-              |
-              = yield :buttons
-              |
-              = button_to :logout, destroy_user_session_path, :method => 'delete'
-          %h1= yield :head
+          #body
+            = content = yield(:content)
+            = yield if content.blank?
 
-        #body
-          = content = yield(:content)
-          = yield if content.blank?
-
-        - if notice || alert
-          #flash
-            %p.notice= notice if notice
-            %p.alert= alert if alert
+          - if notice || alert
+            #flash
+              %p.notice= notice if notice
+              %p.alert= alert if alert

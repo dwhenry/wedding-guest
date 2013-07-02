@@ -2,7 +2,10 @@ WeddingGuest::Application.routes.draw do
   devise_for :users, :controllers => { :sessions => 'users/sessions' }
 
   resources :weddings do
-    member { get 'rotate_image' }
+    member do
+      get 'rotate_image'
+      get 'terms_and_conditions'
+    end
     collection { get 'delete_all' }
 
     resources :guests, :only => [:index, :create, :update]

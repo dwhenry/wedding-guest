@@ -64,6 +64,10 @@ class WeddingsController < ApplicationController
     redirect_to wedding
   end
 
+  def terms_and_conditions
+    @wedding = Wedding.find(params[:id])
+  end
+
 private
   def wedding
     Wedding.find_by_id(params[:id])

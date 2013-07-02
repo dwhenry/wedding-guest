@@ -1,0 +1,22 @@
+- content_for :head do
+  == #{@wedding.name.titlecase}'s
+  Wedding
+- content_for :buttons do
+  = link_to :edit, edit_wedding_path(@wedding)
+  |
+  = link_to :weddings, weddings_path
+
+= render :partial => 'sidebar'
+
+%h1 Terms and Conditions
+
+%ol
+  %li
+    = link_to "Wedding-Guest.herokuapp.com/"
+    is currently free for all usage.
+
+  %li
+    The page ICON
+    = image_tag '/wedding-medium.png'
+    was sourced from
+    = link_to "http://www.aha-soft.com"
