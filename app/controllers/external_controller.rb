@@ -1,7 +1,12 @@
 class ExternalController < ApplicationController
-  def authenticate_user!
-    true
-  end
+  caches_action :show,
+    cache_path: ->(controller) do
+      if params[:name].nil?
+        external_url(params.slice(:wedding_name).merge(name: 'home'))
+      else
+        external_url(params.slice(:wedding_name, :name))
+      end
+    end
 
   def show
     @wedding = Wedding.find_by_param_name(params[:wedding_name])
@@ -10,5 +15,11 @@ class ExternalController < ApplicationController
     else
       @name = params[:name] || 'home'
     end
+  end
+
+protected
+
+  def authenticate_user!
+    true
   end
 end

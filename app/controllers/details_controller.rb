@@ -44,6 +44,7 @@ class DetailsController < ApplicationController
 
     respond_to do |format|
       if @detail.save
+        expire_external_cache
         format.html { redirect_to wedding_details_path(@wedding), notice: 'Detail was successfully created.' }
         format.json { render json: @detail, status: :created, location: @detail }
       else
@@ -61,6 +62,7 @@ class DetailsController < ApplicationController
 
     respond_to do |format|
       if @detail.update_attributes(params[:detail])
+        expire_external_cache
         format.html { redirect_to wedding_details_path(@wedding), notice: 'Detail was successfully updated.' }
         format.json { head :no_content }
       else
@@ -81,5 +83,15 @@ class DetailsController < ApplicationController
       format.html { redirect_to wedding_details_url(@wedding) }
       format.json { head :no_content }
     end
+  end
+
+private
+
+  def expire_external_cache
+    url = external_url(
+      wedding_name: @wedding.param_name,
+      name: @detail.raw_page_name
+    ).split(%r{://}).last # This is a hack copied from actionpack to make it all work
+    ActionController::Base.cache_store.delete(fragment_cache_key(url))
   end
 end
