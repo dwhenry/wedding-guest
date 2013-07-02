@@ -37,7 +37,6 @@ module ApplicationHelper
   def element_writer(element)
     content = []
     if element.image?
-      width, height = element.image.get_version_dimensions
       content << content_tag(:div, :class => "element_image #{cycle('odd', 'even')}") do
         content_tag(
           :img,
