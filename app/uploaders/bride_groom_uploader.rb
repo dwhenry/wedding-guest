@@ -3,8 +3,14 @@
 class BrideGroomUploader < CarrierWave::Uploader::Base
 
   # Include RMagick or MiniMagick support:
-  if Rail.environment.production?
+  if Rails.env.production?
     include Cloudinary::CarrierWave
+
+    def rotate!(angle)
+      cloudinary_transformation :transformation => [
+        {:angle => angle}
+      ]
+    end
   else
     include CarrierWave::RMagick
 
@@ -21,6 +27,21 @@ class BrideGroomUploader < CarrierWave::Uploader::Base
     def cache_dir
       "#{Rails.root}/tmp/uploads"
     end
+
+    process :auto_orient
+
+    def auto_orient
+      manipulate! do |img|
+        img = img.auto_orient
+      end
+    end
+
+    def rotate!(angle)
+      manipulate! do |img|
+        img.rotate!(angle)
+        img
+      end
+    end
   end
 
   # Provide a default URL as a default if there hasn't been a file uploaded:
@@ -31,20 +52,7 @@ class BrideGroomUploader < CarrierWave::Uploader::Base
   # Process files as they are uploaded:
   # process :scale => [200, 300]
   process :resize_to_fit => [300, 300]
-  process :auto_orient
 
-  def auto_orient
-    manipulate! do |img|
-      img = img.auto_orient
-    end
-  end
-
-  def rotate!(angle)
-    manipulate! do |img|
-      img.rotate!(angle)
-      img
-    end
-  end
   #
   # def scale(width, height)
   #   # do something

@@ -2,8 +2,14 @@
 
 class DetailsUploader < CarrierWave::Uploader::Base
 
-  if Rail.environment.production?
+  if Rails.env.production?
     include Cloudinary::CarrierWave
+
+    def rotate!(angle)
+      cloudinary_transformation :transformation => [
+        {:angle => angle}
+      ]
+    end
   else
     include CarrierWave::RMagick
     # Include RMagick or MiniMagick support:
@@ -23,6 +29,21 @@ class DetailsUploader < CarrierWave::Uploader::Base
     def cache_dir
       "#{Rails.root}/tmp/uploads"
     end
+
+    process :auto_orient
+
+    def auto_orient
+      manipulate! do |img|
+        img = img.auto_orient
+      end
+    end
+
+    def rotate!(angle)
+      manipulate! do |img|
+        img.rotate!(angle)
+        img
+      end
+    end
   end
 
   # Provide a default URL as a default if there hasn't been a file uploaded:
@@ -32,20 +53,6 @@ class DetailsUploader < CarrierWave::Uploader::Base
 
   # Process files as they are uploaded:
   process :resize_to_fit => [150, 150]
-  process :auto_orient
-
-  def auto_orient
-    manipulate! do |img|
-      img = img.auto_orient
-    end
-  end
-
-  def rotate!(angle)
-    manipulate! do |img|
-      img.rotate!(angle)
-      img
-    end
-  end
   #
   # def scale(width, height)
   #   # do something
@@ -60,10 +67,6 @@ class DetailsUploader < CarrierWave::Uploader::Base
   # For images you might use something like this:
   def extension_white_list
     %w(jpg jpeg)
-  end
-
-  def get_version_dimensions
-    width, height = `identify -format "%wx%h" #{file.path}`.strip.split(/x/)
   end
 
   # Override the filename of the uploaded files:

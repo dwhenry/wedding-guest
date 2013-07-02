@@ -16,21 +16,21 @@ module ApplicationHelper
   end
 
   def page_writer(page_name, wedding)
-    title = content_tag('div', :class => 'TITLE') do
+    title = content_tag(:div, :class => 'TITLE') do
       page_name.gsub(/_/, ' ').titlecase
     end
     elements = wedding.page_details.for(page_name)
     if elements.presence
       title +
       elements.map do |element|
-        content_tag('div', :class => element.formatting_class) do
+        content_tag(:div, :class => element.formatting_class) do
           element_writer(element)
         end
       end.join.html_safe
     else
       return title +
-             content_tag('div', "Under Construction", :class => 'PENDING') +
-             content_tag('div', "Please check back soon", :class => 'PENDING')
+             content_tag(:div, "Under Construction", :class => 'PENDING') +
+             content_tag(:div, "Please check back soon", :class => 'PENDING')
     end
   end
 
@@ -38,12 +38,13 @@ module ApplicationHelper
     content = []
     if element.image?
       width, height = element.image.get_version_dimensions
-      content << content_tag(
-        'div',
-        '',
-        :class => "element_image #{cycle('odd', 'even')}",
-        style:  "background-image: url(#{element.image_url}); width: #{width}px; height: #{height}px;"
-      )
+      content << content_tag(:div, :class => "element_image #{cycle('odd', 'even')}") do
+        content_tag(
+          :img,
+          '',
+          src: element.image_url
+        )
+      end
     end
     element.text.split(/[\r\n]+/).each do |paragraph|
       content << content_tag('p', paragraph)
