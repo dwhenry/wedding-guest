@@ -8,9 +8,9 @@ class Detail < ActiveRecord::Base
 
   extend Fields
   prettify_string :page_name
-  mount_uploader :image, BrideGroomUploader
+  mount_uploader :image, DetailsUploader
 
-  attr_accessible :page_name, :order, :text, :wedding_id, :image_cache, :formatting_class
+  attr_accessible :page_name, :order, :text, :wedding_id, :image, :image_cache, :formatting_class
 
   belongs_to :wedding
 

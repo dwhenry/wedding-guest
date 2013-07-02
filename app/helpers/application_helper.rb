@@ -37,7 +37,13 @@ module ApplicationHelper
   def element_writer(element)
     content = []
     if element.image?
-      content << content_tag('div', '', :class => "tag", style:  "background-image: url(#{@wedding.image_url})")
+      width, height = element.image.get_version_dimensions
+      content << content_tag(
+        'div',
+        '',
+        :class => "element_image #{cycle('odd', 'even')}",
+        style:  "background-image: url(#{element.image_url}); width: #{width}px; height: #{height}px;"
+      )
     end
     element.text.split(/[\r\n]+/).each do |paragraph|
       content << content_tag('p', paragraph)

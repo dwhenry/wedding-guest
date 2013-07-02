@@ -21,3 +21,23 @@
   margin: 20px auto;
   text-align: center;
 }
+
+.element_image {
+  width: 150px;
+  height: 150px;
+  background-repeat: no-repeat;
+  background-color: #DDD;
+  background-position: center;
+  border-radius: 10px;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  float: right;
+  margin-left: 20px;
+
+  &.even {
+    float: left;
+    margin-left: 0;
+    margin-right: 20px;
+  }
+}
+
