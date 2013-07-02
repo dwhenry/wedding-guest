@@ -9,13 +9,19 @@ gem 'pg'
 gem 'haml'
 gem 'sass'
 gem 'carrierwave'
-gem 'rmagick'
 gem 'jquery-ui-rails'
 gem 'devise'
 gem 'unicorn'
 gem 'newrelic_rpm'
 gem 'redis'
 gem 'redis-rails'
+
+group :production do
+  gem 'cloudinary'
+end
+group :development, :test do
+  gem 'rmagick'
+end
 
 # Gems used only for assets and not required
 # in production environments by default.
