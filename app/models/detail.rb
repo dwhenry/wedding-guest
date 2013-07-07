@@ -1,6 +1,6 @@
 class Detail < ActiveRecord::Base
   PAGES = ['Home', 'About Us', 'Ceremony & Reception',
-    'Timetable', 'Directions', 'The Day After']
+    'Timetable', 'Directions', 'The Day After', 'RSVP Online', 'Gift List', 'Where To Stay']
   FORMATS = {
     'H1' => 'Main Header',
     'H2' => 'Sub Header',

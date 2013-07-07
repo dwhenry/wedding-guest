@@ -13,13 +13,13 @@
       Timetable
     %li{:'data-url' => external_path(@wedding.param_name, name: :directions )}
       Directions
-    %li{:'data-url' => external_path(@wedding.param_name, name: :day_after )}
+    %li{:'data-url' => external_path(@wedding.param_name, name: :the_day_after )}
       The Day After
 
   %h3
     Organisation
   %ul
-    %li{:'data-url' => external_path(@wedding.param_name, name: :rsvp )}
+    %li{:'data-url' => external_path(@wedding.param_name, name: :'|rsvp|_online' )}
       RSVP Online
     %li{:'data-url' => external_path(@wedding.param_name, name: :gift_list )}
       Gift List

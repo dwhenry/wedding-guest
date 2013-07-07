@@ -17,7 +17,7 @@ module ApplicationHelper
 
   def page_writer(page_name, wedding)
     title = content_tag(:div, :class => 'TITLE') do
-      page_name.gsub(/_/, ' ').titlecase
+      Fields::Transforms.read_transform.call(page_name)
     end
     elements = wedding.page_details.for(page_name)
     if elements.presence
