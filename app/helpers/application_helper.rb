@@ -41,7 +41,7 @@ module ApplicationHelper
         content_tag(
           :img,
           '',
-          src: element.image_url
+          src: element.sized_url
         )
       end
     end

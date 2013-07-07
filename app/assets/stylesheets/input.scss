@@ -52,15 +52,15 @@ input {
   position: relative;
 
   .tag {
-    width: 300px;
-    height: 300px;
-    background-repeat: no-repeat;
-    background-color: #DDD;
-    background-position: center;
+    display: inline-block;
+    overflow: hidden;
     border: solid 2px #999;
-    border-radius: 20px;
-    -moz-border-radius: 20px;
-    -webkit-border-radius: 20px;
+    border-radius: 10px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    img {
+      vertical-align: top;
+    }
   }
 }
 

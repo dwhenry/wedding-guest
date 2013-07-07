@@ -7,17 +7,24 @@ class Detail < ActiveRecord::Base
     'ADDRESS' => 'Address',
     'TIMETABLE' => 'Timetable'
   }
+  IMAGE_SIZES = {
+    'small'   => [150, 150],
+    'medium'  => [200, 200],
+    'large'   => [250, 250]
+  }
 
   extend Fields
   prettify_string :page_name
   mount_uploader :image, DetailsUploader
 
-  attr_accessible :page_name, :order, :text, :wedding_id, :image, :image_cache, :formatting_class
+  attr_accessible :page_name, :order, :text, :wedding_id, :image,
+    :image_cache, :formatting_class, :image_size
 
   belongs_to :wedding
 
   validates_uniqueness_of :order, scope: [:wedding_id, :page_name]
   validates_presence_of :page_name, :wedding_id, :text, :order
+  validates_presence_of :image_size, if: ->(d) { d.image? }
 
   before_validation :ensure_ordered
 
@@ -42,5 +49,9 @@ class Detail < ActiveRecord::Base
       update_attributes(order: position)
       move_to.update_attributes(order: current_position)
     end
+  end
+
+  def sized_url
+    image.send(image_size).url
   end
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130623142731) do
+ActiveRecord::Schema.define(:version => 20130707153258) do
 
   create_table "addresses", :force => true do |t|
     t.integer  "wedding_id"
@@ -36,6 +36,7 @@ ActiveRecord::Schema.define(:version => 20130623142731) do
     t.string   "page_name"
     t.integer  "order"
     t.string   "formatting_class"
+    t.string   "image_size"
   end
 
   create_table "gifts", :force => true do |t|

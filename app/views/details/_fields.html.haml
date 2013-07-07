@@ -4,11 +4,13 @@
   .label
     = f.label :image
   .value
-    - if @wedding.image?
-      .tag{:style => "background-image: url(#{@wedding.image_url})"}
+    - if f.object.image?
+      .tag
+        = image_tag(f.object.sized_url)
   .value
     = f.file_field :image
     = f.hidden_field :image_cache
+  = labeled_selecter_with_error(f, :image_size, label: 'Size', items: Detail::IMAGE_SIZES.keys, include_blank: '<- select size ->')
 
 = labeled_selecter_with_error(f, :page_name, label: 'Page', items: Detail::PAGES, include_blank: '<- select page ->')
 = labeled_selecter_with_error(f, :formatting_class, label: 'Format', items: Detail::FORMATS.invert, include_blank: '<- select format ->')
