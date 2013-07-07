@@ -20,17 +20,19 @@ module ApplicationHelper
       Fields::Transforms.read_transform.call(page_name)
     end
     elements = wedding.page_details.for(page_name)
-    if elements.presence
-      title +
-      elements.map do |element|
-        content_tag(:div, :class => element.formatting_class) do
-          element_writer(element)
-        end
-      end.join.html_safe
-    else
-      return title +
-             content_tag(:div, "Under Construction", :class => 'PENDING') +
-             content_tag(:div, "Please check back soon", :class => 'PENDING')
+    content_tag('div', :class => page_name.gsub(/([^a-z_])/, '')) do
+      if elements.presence
+        title +
+        elements.map do |element|
+          content_tag(:div, :class => element.formatting_class) do
+            element_writer(element)
+          end
+        end.join.html_safe
+      else
+        title +
+        content_tag(:div, "Under Construction", :class => 'PENDING') +
+        content_tag(:div, "Please check back soon", :class => 'PENDING')
+      end
     end
   end
 
