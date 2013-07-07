@@ -30,6 +30,18 @@
   }
 }
 
+.TIMETABLE {
+  p {
+    display: inline-block;
+  }
+
+  p:first-child {
+    width: 100px;
+    color: #666;
+    font-weight: bolder;
+  }
+}
+
 .element_image {
   overflow: hidden;
   background-repeat: no-repeat;

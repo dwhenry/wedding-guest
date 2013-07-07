@@ -4,7 +4,8 @@ class Detail < ActiveRecord::Base
   FORMATS = {
     'H1' => 'Main Header',
     'H2' => 'Sub Header',
-    'ADDRESS' => 'Address'
+    'ADDRESS' => 'Address',
+    'TIMETABLE' => 'Timetable'
   }
 
   extend Fields
