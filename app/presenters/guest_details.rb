@@ -4,8 +4,9 @@ class GuestDetails
     @params = params
   end
 
-  def guest_lists
-    @wedding.guest_lists.order(:id).map do |guest_list|
+  def guest_lists(user=nil)
+    lists = @wedding.guest_lists.for(user).order('guest_lists.id')
+    lists.map do |guest_list|
       classname = guest_list.name == list_name ? 'selected' : ''
       [guest_list, classname]
     end
@@ -26,6 +27,10 @@ class GuestDetails
 
   def list_owner?(user)
     !user.permissions.for_wedding(@wedding).with_list.empty?
+  end
+
+  def owner?(user)
+    @wedding.owner?(user)
   end
 
   def wrap(guests)

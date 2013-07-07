@@ -1,4 +1,14 @@
 class DetailsController < ApplicationController
+  before_filter :can_edit
+
+private
+
+  def can_edit
+    wedding.owner?(current_user)
+  end
+
+public
+
   def sort
     wedding = Wedding.find(params[:wedding_id])
     detail = Detail.find(params[:id])

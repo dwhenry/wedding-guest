@@ -6,7 +6,7 @@ class Wedding < ActiveRecord::Base
 
   has_many :guests
   has_many :addresses
-  has_many :guest_lists, order: 'created_at'
+  has_many :guest_lists, order: 'guest_lists.created_at'
   has_many :gifts
   has_many :page_details, order: ['page_name', '"order"'], class_name: 'Detail'
 
@@ -43,6 +43,10 @@ class Wedding < ActiveRecord::Base
 
   def guest_names
     guests.map(&:users).flatten.compact.map(&:nickname)
+  end
+
+  def owner?(user)
+    [bride_email, groom_email].include?(user.email)
   end
 
 private

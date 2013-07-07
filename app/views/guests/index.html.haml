@@ -10,12 +10,16 @@
 
 - if wedding.list_owner?(current_user)
   %ul#guest_lists.selectable
-    %li.select_element.float_right
-      = link_to 'Manage Lists', wedding_list_managers_path(@wedding)
-    - wedding.guest_lists.each do |guest_list, class_name|
-      %li.select_element{class: class_name}
-        = link_to guest_list.name, wedding_guests_path(@wedding, list: guest_list.name)
-
+    - if wedding.owner?(current_user)
+      %li.select_element.float_right
+        = link_to 'Manage Lists', wedding_list_managers_path(@wedding)
+      - wedding.guest_lists.each do |guest_list, class_name|
+        %li.select_element{class: class_name}
+          = link_to guest_list.name, wedding_guests_path(@wedding, list: guest_list.name)
+    - else
+      - wedding.guest_lists(current_user).each do |guest_list, class_name|
+        %li.select_element{class: class_name}
+          = link_to guest_list.name, wedding_guests_path(@wedding, list: guest_list.name)
 %table.spaced{:class => "#{'editable' if wedding.can_edit_guest?(current_user)}"}
   %thead
     %tr
@@ -45,4 +49,3 @@
       %tr{:'data-table' => '.guests'}
         %td{:colspan =>  4}
           + Add Guest
-

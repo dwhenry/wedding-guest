@@ -6,7 +6,8 @@
       Guests
     %li{:'data-url' => wedding_addresses_path(@wedding)}
       Addresses
-    %li{:'data-url' => wedding_details_path(@wedding)}
-      External Texts
+    - if @wedding.owner?(current_user)
+      %li{:'data-url' => wedding_details_path(@wedding)}
+        External Texts
     %li{:'data-url' => terms_and_conditions_wedding_path(@wedding)}
       Terms and Conditions
