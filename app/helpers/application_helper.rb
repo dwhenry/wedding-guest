@@ -46,9 +46,18 @@ module ApplicationHelper
       end
     end
     element.text.split(/[\r\n]+/).each do |paragraph|
-      content << content_tag('p', paragraph)
+      content << content_tag('p', text_writer(paragraph))
     end
     content.join.html_safe
+  end
+
+  def text_writer(paragraph)
+    paragraph.gsub(/#\?(.*)\?#/) do |json|
+      details = JSON.parse(json[2..-3])
+      tag = details.delete('tag')
+      text = details.delete('text')
+      content_tag(tag, text, details)
+    end.html_safe
   end
 
   class LabeledFieldWithError < SimpleDelegator
