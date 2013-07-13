@@ -14,8 +14,11 @@ WeddingGuest::Application.routes.draw do
     end
     resources :gifts, :only => [:index]
     resources :addresses
-    resources :details, :except => [:show] do
-      member { put 'sort' }
+    resources :details do
+      member {
+        put 'sort'
+        get 'set'
+      }
     end
   end
 

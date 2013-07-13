@@ -9,6 +9,19 @@ private
 
 public
 
+  def set
+    wedding = Wedding.find(params[:wedding_id])
+    detail = Detail.find(params[:id])
+
+    detail.update_attributes!(params[:attrs])
+    redirect_to wedding_detail_path(wedding, detail.raw_page_name)
+  end
+
+  def show
+    @wedding = Wedding.find(params[:wedding_id])
+    @details = Detail.where(page_name: params[:id]).first || raise("Invalid page: #{params[:id]}")
+  end
+
   def sort
     wedding = Wedding.find(params[:wedding_id])
     detail = Detail.find(params[:id])

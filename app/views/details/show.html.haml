@@ -1,0 +1,15 @@
+- content_for :head do
+  Texts For
+  == #{@wedding.name}'s
+  Wedding
+
+- content_for :buttons do
+  = link_to 'all detail', wedding_details_path(@wedding)
+  |
+  = link_to :weddings, weddings_path
+
+
+= render :partial => 'weddings/sidebar'
+
+- @editor = true
+= render partial: 'external/page', locals: { page_name: params[:id], wedding: @wedding }
