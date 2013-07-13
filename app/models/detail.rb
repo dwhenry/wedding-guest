@@ -54,4 +54,10 @@ class Detail < ActiveRecord::Base
   def sized_url
     image.send(image_size).url
   end
+
+  def each_text_element(&block)
+    text.split(/[\r\n]+/).each do |text|
+      block.call(text)
+    end
+  end
 end

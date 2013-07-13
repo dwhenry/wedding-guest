@@ -15,44 +15,6 @@ module ApplicationHelper
     )
   end
 
-  def page_writer(page_name, wedding)
-    title = content_tag(:div, :class => 'TITLE') do
-      Fields::Transforms.read_transform.call(page_name)
-    end
-    elements = wedding.page_details.for(page_name)
-    content_tag('div', :class => page_name.gsub(/([^a-z_])/, '')) do
-      if elements.presence
-        title +
-        elements.map do |element|
-          content_tag(:div, :class => element.formatting_class) do
-            element_writer(element)
-          end
-        end.join.html_safe
-      else
-        title +
-        content_tag(:div, "Under Construction", :class => 'PENDING') +
-        content_tag(:div, "Please check back soon", :class => 'PENDING')
-      end
-    end
-  end
-
-  def element_writer(element)
-    content = []
-    if element.image?
-      content << content_tag(:div, :class => "element_image #{cycle('odd', 'even')}") do
-        content_tag(
-          :img,
-          '',
-          src: element.sized_url
-        )
-      end
-    end
-    element.text.split(/[\r\n]+/).each do |paragraph|
-      content << content_tag('p', text_writer(paragraph))
-    end
-    content.join.html_safe
-  end
-
   def text_writer(paragraph)
     paragraph.gsub(/#\?(.*)\?#/) do |json|
       details = JSON.parse(json[2..-3])

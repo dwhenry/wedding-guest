@@ -1,0 +1,16 @@
+.TITLE
+  = Fields::Transforms.read_transform.call(page_name)
+- if (elements = wedding.page_details.for(page_name)).present?
+  - elements.each do |element|
+    %div{:class => element.formatting_class}
+      - if element.image?
+        .element_image{:class => cycle('odd', 'even')}
+          = image_tag(element.sized_url)
+      - element.each_text_element do |text|
+        %p
+          = text_writer(text)
+- else
+  .PENDING
+    Under Construction
+  .PENDING
+    Please check back soon

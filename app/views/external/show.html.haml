@@ -9,4 +9,4 @@
 
 = render :partial => 'sidebar'
 
-= page_writer(@name, @wedding)
+= render partial: 'page', locals: { page_name: @name, wedding: @wedding }
