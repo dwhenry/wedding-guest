@@ -8,8 +8,10 @@ $darkest: #65324B;
   position: relative;
   margin-left: -10px;
   padding-left: 10px;
-  // box-sizing: border-box;
-  // -webkit-box-sizing: border-box;
+
+  &.editing {
+    min-height: 73px;
+  }
 
   &:hover {
     border: solid 2px #CCC;
@@ -66,11 +68,12 @@ $darkest: #65324B;
 
     ol.options {
       position: absolute;
-      margin: 0 0 0 22px;
+      margin: 0 0 0 20px;
       padding: 0 0 5px 0;
       display: none;
       border: solid 1px #666;
       background: white;
+      z-index: 100;
 
       li {
         position: relative;

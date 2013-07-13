@@ -2,7 +2,7 @@
   = Fields::Transforms.read_transform.call(page_name)
 - if (elements = wedding.page_details.for(page_name)).present?
   - elements.each do |element|
-    .container{:class => element.formatting_class}
+    .container{:class => "#{element.formatting_class} #{'editing' if @editor}"}
       - if @editor
         .editors
           .edit
