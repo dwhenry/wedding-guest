@@ -46,9 +46,10 @@
       - if element.image?
         .element_image{:class => cycle('odd', 'even')}
           = image_tag(element.sized_url)
-      - element.each_text_element do |text|
-        %p
-          = text_writer(text)
+      .text_container
+        - element.each_text_element do |text|
+          %p
+            = text_writer(text)
 
 - else
   .PENDING

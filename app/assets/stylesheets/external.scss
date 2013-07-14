@@ -32,15 +32,17 @@
 }
 
 .TIMETABLE {
-  p {
-    margin: 0;
-    display: inline-block;
-  }
+  .text_container {
+    p {
+      margin: 0;
+      display: inline-block;
+    }
 
-  p:first-child {
-    width: 100px;
-    color: #666;
-    font-weight: bolder;
+    p:first-child {
+      width: 100px;
+      color: #666;
+      font-weight: bolder;
+    }
   }
 }
 
