@@ -1,3 +1,15 @@
+- if @editor
+  .cover
+    #editor
+      = form_tag '' do
+        .field
+          Edit Text content of field
+        .field
+          = text_area_tag '[attrs]text'
+        .field
+          = submit_tag 'update'
+          = link_to 'cancel'
+
 .TITLE
   = Fields::Transforms.read_transform.call(page_name)
 - if (elements = wedding.page_details.for(page_name)).present?
@@ -6,8 +18,11 @@
       - if @editor
         .editors
           .edit
-            .img{'aria-hidden' => "true", 'data-icon' => "a"}
-              a
+            .img{'aria-hidden' => "true", data: {icon: "a", url: set_wedding_detail_path(@wedding, element) }}
+              = link_to 'a'
+            %ol.options
+              %li.header
+                Edit
           .title_format
             .img{'aria-hidden' => "true", 'data-icon' => "é"}
               é
@@ -34,6 +49,7 @@
       - element.each_text_element do |text|
         %p
           = text_writer(text)
+
 - else
   .PENDING
     Under Construction

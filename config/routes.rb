@@ -18,6 +18,7 @@ WeddingGuest::Application.routes.draw do
       member {
         put 'sort'
         get 'set'
+        post 'set'
       }
     end
   end

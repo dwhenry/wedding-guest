@@ -4,6 +4,31 @@ $medium: #E19E95;
 $dark: #3F1C29;
 $darkest: #65324B;
 
+.cover {
+  position: absolute;
+  top: 0px;
+  bottom: 0px;
+  display: none;
+  background: rgba(#999, 0.6);
+  width: 100%;
+  left: 0;
+  z-index: 1000;
+
+  #editor {
+    width: 400px;
+    border: solid black 2px;
+    border-radius: 10px;
+    background: white;
+    margin: 150px auto;
+    padding: 20px;
+
+    textarea {
+      width: 400px;
+      height: 150px;
+    }
+  }
+}
+
 .container {
   position: relative;
   margin-left: -10px;
@@ -16,7 +41,7 @@ $darkest: #65324B;
   &:hover {
     border: solid 2px #CCC;
     border-radius: 0 10px 10px 10px;
-    margin: -10px -2px -2px -12px;
+    margin: -10px -2px 4px -12px;
     padding-top: 3px;
 
     .editors {
@@ -84,13 +109,13 @@ $darkest: #65324B;
 
         a { text-decoration: none; }
         a:hover { text-decoration: underline; }
-        a, a:hover, a:visited { color: $darkest;}
-        &.selected a { color: red;}
+        a, a:hover, a:visited { color: $light;}
+        &.selected a { color: $darkest;}
       }
 
       .header {
         font-weight: bold;
-        line-height: 2em
+        // line-height: 2em
       }
     }
     > div:hover .options {
