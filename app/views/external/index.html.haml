@@ -1,0 +1,22 @@
+- content_for :head do
+  Browse Wedding's
+- content_for :buttons do
+  - if current_user
+    = link_to :weddings, weddings_path
+- content_for :external do
+  = link_to 'Create Your our Wedding Website', root_path
+
+%table
+  %thead
+    %tr
+      %th Name
+      %th Date
+      %th Link
+  %tbody
+    - Wedding.all.each do |wedding|
+      %tr
+        %td
+          = image_tag(wedding.image.thumb.url) if wedding.image?
+          = wedding.name
+        %td= wedding.on.display
+        %td= link_to external_url(:wedding_name => wedding.param_name), external_url(:wedding_name => wedding.param_name)

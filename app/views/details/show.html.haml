@@ -12,4 +12,5 @@
 = render :partial => 'weddings/sidebar'
 
 - @editor = true
-= render partial: 'external/page', locals: { page_name: params[:id], wedding: @wedding }
+#editor
+  = render partial: 'external/page', locals: { page_name: params[:id], wedding: @wedding }

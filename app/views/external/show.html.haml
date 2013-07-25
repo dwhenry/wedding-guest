@@ -6,6 +6,8 @@
     = link_to :edit, edit_wedding_path(@wedding)
     |
     = link_to :weddings, weddings_path
+- content_for :external do
+  = link_to 'Create Your our Wedding Website', root_path
 
 = render :partial => 'sidebar'
 

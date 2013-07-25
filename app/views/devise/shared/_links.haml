@@ -3,7 +3,6 @@
     %ol
       = link_to "Sign in", new_session_path(resource_name)
 
-
   - if devise_mapping.registerable? && controller_name != 'registrations'
     %ol
       = link_to "Sign up", new_registration_path(resource_name)
@@ -24,3 +23,5 @@
     - resource_class.omniauth_providers.each do |provider|
       %ol
         = link_to "Sign in with #{provider.to_s.titleize}", omniauth_authorize_path(resource_name, provider)
+  %ol
+    = link_to "Browse", external_index_path(resource_name)

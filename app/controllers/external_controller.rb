@@ -17,6 +17,10 @@ class ExternalController < ApplicationController
     end
   end
 
+  def index
+    render :index, layout: 'full_width'
+  end
+
 protected
 
   def authenticate_user!

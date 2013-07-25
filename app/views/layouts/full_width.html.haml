@@ -19,6 +19,9 @@
                 = yield :buttons
                 |
                 = button_to :logout, destroy_user_session_path, :method => 'delete'
+              - else
+                = yield :external
+
             %h1= yield :head
 
           #body

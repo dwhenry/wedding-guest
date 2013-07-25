@@ -32,6 +32,7 @@ WeddingGuest::Application.routes.draw do
     end
   end
 
+  match 'external' => 'external#index', :as => :external_index
   match ':wedding_name(/:name)' => 'external#show', :as => :external
 
   # The priority is based upon order of creation:
