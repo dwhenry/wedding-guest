@@ -8,7 +8,7 @@
           = text_area_tag '[attrs]text'
         .field
           = submit_tag 'update'
-          = link_to 'cancel'
+          = link_to 'cancel', '#', {}, {class: 'cancel'}
 
 .TITLE
   = Fields::Transforms.read_transform.call(page_name)
@@ -22,7 +22,7 @@
               = link_to 'a'
             %ol.options
               %li.header
-                Edit
+              = link_to 'Edit'
           .title_format
             .img{'aria-hidden' => "true", 'data-icon' => "é"}
               é

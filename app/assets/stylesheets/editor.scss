@@ -44,11 +44,18 @@ $darkest: #65324B;
       border-radius: 0 10px 10px 10px;
       margin: -10px -2px 4px -12px;
       padding-top: 3px;
+      padding-bottom: 3px;
 
       .editors {
         display: block;
       }
+
+      .element_image {
+        padding-top: 5px;
+        border-radius: 10px;
+      }
     }
+
 
     .editors {
       position: absolute;
@@ -94,8 +101,8 @@ $darkest: #65324B;
 
       ol.options {
         position: absolute;
-        margin: 0 0 0 20px;
-        padding: 0 0 5px 0;
+        margin: -3px 0 0 20px;
+        padding: 1px 1px;
         display: none;
         border: solid 1px #666;
         background: white;
@@ -110,9 +117,21 @@ $darkest: #65324B;
 
           a { text-decoration: none; }
           a:hover { text-decoration: underline; }
-          a, a:hover, a:visited { color: $light;}
-          &.selected a { color: $darkest;}
+          a, a:hover, a:visited { color: $light; }
+          &.selected a { color: $darkest; }
         }
+
+        > a {
+          padding: 0 5px;
+          line-height: 1.2em;
+          display: block;
+          text-decoration: none;
+          color: $light;
+
+          &:hover { text-decoration: underline; }
+          &:hover, &:visited { color: $light; }
+        }
+
 
         .header {
           font-weight: bold;
