@@ -7,7 +7,20 @@
     %li{:'data-url' => wedding_addresses_path(@wedding)}
       Addresses
     - if @wedding.owner?(current_user)
-      %li{data: {url: wedding_details_path(@wedding), match: '(/[^/]*|)$'}}
+      %li{data: {url: wedding_details_path(@wedding), match: '(/[^/]*|)$'}, class: :external}
         External Texts
+        %ul
+          %li{data: {url: wedding_detail_path(@wedding, id: :home)}}
+            Home
+          %li{data: {url: wedding_detail_path(@wedding, id: :about_us)}}
+            About Us
+          %li
+            Ceremony & Reception
+          %li{data: {url: wedding_detail_path(@wedding, id: :timetable)}}
+            Timetable
+          %li{data: {url: wedding_detail_path(@wedding, id: :directions)}}
+            Directions
+          %li{data: {url: wedding_detail_path(@wedding, id: :the_day_after)}}
+            The Day After
     %li{:'data-url' => terms_and_conditions_wedding_path(@wedding)}
       Terms and Conditions

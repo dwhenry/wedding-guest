@@ -1,5 +1,8 @@
 $ ->
+  navigating = false
   navigate_to = (url)->
+    return if navigating
+    navigating = true
     return if url == undefined
     window.location.href = url
 

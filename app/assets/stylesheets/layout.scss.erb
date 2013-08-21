@@ -113,6 +113,13 @@ h1 {
         &:hover {
           background-color: $medium;
         }
+
+        &.external {
+          ul { display: none }
+          &.selected ul {
+            display: block;
+          }
+        }
       }
     }
   }
