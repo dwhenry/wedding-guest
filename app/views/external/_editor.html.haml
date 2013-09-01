@@ -1,0 +1,27 @@
+.editors
+  .edit
+    .img{'aria-hidden' => "true", data: {icon: "a", url: set_wedding_detail_path(@wedding, element) }}
+      = link_to 'a'
+    %ol.options
+      %li.header
+      = link_to 'Edit'
+  .title_format
+    .img{'aria-hidden' => "true", 'data-icon' => "é"}
+      é
+    %ol.options
+      %li.header
+        Text Format
+      %li.option{:class => (element.formatting_class.blank? ? 'selected' : '')}
+        = link_to 'Plain', set_wedding_detail_path(@wedding, element, attrs: {formatting_class: nil})
+      - Detail::FORMATS.invert.each do |format_name, format|
+        %li.option{:class => (element.formatting_class == format ? 'selected' : '')}
+          = link_to format_name, set_wedding_detail_path(@wedding, element, attrs: {formatting_class: format})
+  .image_size
+    .img{'aria-hidden' => "true", 'data-icon' => "A"}
+      A
+    %ol.options
+      %li.header
+        Image Sizes
+      - Detail::IMAGE_SIZES.each do |image_size_name, image_size|
+        %li.option{:class => (element.image_size == image_size ? 'selected' : '')}
+          = link_to image_size_name, set_wedding_detail_path(@wedding, element, attrs: {image_size: image_size_name})

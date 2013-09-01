@@ -1,6 +1,8 @@
 - content_for :head do
-  == #{@wedding.name.titlecase}'s
+  == #{@wedding.name}'s
   Wedding
+  .countdown
+    == #{@wedding.on} - #{countdown(@wedding.raw_on)}
 - content_for :buttons do
   - if current_user
     = link_to :edit, edit_wedding_path(@wedding)

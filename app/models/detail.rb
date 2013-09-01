@@ -10,7 +10,9 @@ class Detail < ActiveRecord::Base
   IMAGE_SIZES = {
     'small'   => [150, 150],
     'medium'  => [200, 200],
-    'large'   => [250, 250]
+    'large'   => [250, 250],
+    'larger'   => [300, 300],
+    'largest'   => [350, 350]
   }
 
   extend Fields

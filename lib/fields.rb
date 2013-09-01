@@ -3,6 +3,10 @@ module Fields
     define_method field do
       read_attribute(field).try(:strftime, options[:format] || '%d %b %Y')
     end
+
+    define_method "raw_#{field}" do
+      read_attribute(field)
+    end
   end
 
   def prettify_string(field, options={})
