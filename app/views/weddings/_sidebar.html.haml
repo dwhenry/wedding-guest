@@ -1,26 +1,17 @@
 - content_for :sidebar do
   %ul
-    %li{:'data-url' => wedding_path(@wedding)}
-      Details
-    %li{:'data-url' => wedding_guests_path(@wedding)}
-      Guests
-    %li{:'data-url' => wedding_addresses_path(@wedding)}
-      Addresses
+    %li= link_to 'Details', wedding_path(@wedding)
+    %li= link_to 'Guests', wedding_guests_path(@wedding)
+    %li= link_to 'Addresses', wedding_addresses_path(@wedding)
     - if @wedding.owner?(current_user)
-      %li{data: {url: wedding_details_path(@wedding), match: '(/[^/]*|)$'}, class: :external}
-        External Texts
+      %li{data: {match: '(/[^/]*|)$'}, class: :external}
+        = link_to 'External Texts', wedding_details_path(@wedding)
         %ul
-          %li{data: {url: wedding_detail_path(@wedding, id: :home)}}
-            Home
-          %li{data: {url: wedding_detail_path(@wedding, id: :about_us)}}
-            About Us
-          %li
-            Ceremony & Reception
-          %li{data: {url: wedding_detail_path(@wedding, id: :timetable)}}
-            Timetable
-          %li{data: {url: wedding_detail_path(@wedding, id: :directions)}}
-            Directions
-          %li{data: {url: wedding_detail_path(@wedding, id: :the_day_after)}}
-            The Day After
-    %li{:'data-url' => terms_and_conditions_wedding_path(@wedding)}
-      Terms and Conditions
+          %li= link_to 'Home', wedding_detail_path(@wedding, id: :home)
+          %li= link_to 'About Us', wedding_detail_path(@wedding, id: :about_us)
+          %li= link_to 'Ceremony & Reception', wedding_detail_path(@wedding, id: :'ceremony_&_reception')
+          %li= link_to 'Timetable', wedding_detail_path(@wedding, id: :timetable)
+          %li= link_to 'Directions', wedding_detail_path(@wedding, id: :directions)
+          %li= link_to 'The Day After', wedding_detail_path(@wedding, id: :the_day_after)
+          %li= link_to 'Where To Stay', wedding_detail_path(@wedding, id: :where_to_stay )
+    %li= link_to 'Terms & Conditions', terms_and_conditions_wedding_path(@wedding)

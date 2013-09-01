@@ -1,27 +1,16 @@
 - content_for :sidebar do
-  %h3
-    The Wedding
+  %h3 The Wedding
   %ul
-    %li{:'data-url' => external_path(@wedding.param_name, name: :home )}
-      Home
-    %li{:'data-url' => external_path(@wedding.param_name, name: :about_us )}
-      About Us
-    %li{:'data-url' => external_path(@wedding.param_name, name: :'ceremony_&_reception' )}
-      Ceremony & Reception
+    %li= link_to 'Home', external_path(@wedding.param_name, name: :home )
+    %li= link_to 'About Us', external_path(@wedding.param_name, name: :about_us )
+    %li= link_to 'Ceremony & Reception', external_path(@wedding.param_name, name: :'ceremony_&_reception' )
 
-    %li{:'data-url' => external_path(@wedding.param_name, name: :timetable )}
-      Timetable
-    %li{:'data-url' => external_path(@wedding.param_name, name: :directions )}
-      Directions
-    %li{:'data-url' => external_path(@wedding.param_name, name: :the_day_after )}
-      The Day After
+    %li= link_to 'Timetable', external_path(@wedding.param_name, name: :timetable )
+    %li= link_to 'Directions', external_path(@wedding.param_name, name: :directions )
+    %li= link_to 'The Day After', external_path(@wedding.param_name, name: :the_day_after )
 
-  %h3
-    Organisation
+  %h3 Organisation
   %ul
-    %li{:'data-url' => external_path(@wedding.param_name, name: :'|rsvp|_online' )}
-      RSVP Online
-    %li{:'data-url' => external_path(@wedding.param_name, name: :gift_list )}
-      Gift List
-    %li{:'data-url' => external_path(@wedding.param_name, name: :where_to_stay )}
-      Where To Stay
+    %li= link_to 'RSVP Online', external_path(@wedding.param_name, name: :'|rsvp|_online' )
+    %li= link_to 'Gift List', external_path(@wedding.param_name, name: :gift_list )
+    %li= link_to 'Where To Stay', external_path(@wedding.param_name, name: :where_to_stay )
