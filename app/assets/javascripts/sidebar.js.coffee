@@ -16,12 +16,13 @@ $ ->
     navigate_to url(this)
 
   $('#sidebar li').each ->
+
+    link = $(this).find('> a')
+    if link.length > 0
+      $(this).data('url', link.attr('href'))
+      link.replaceWith link.text()
+
     pattern = new RegExp url(this) + match(this)
 
     if(window.location.pathname.match(pattern))
       $(this).addClass('selected')
-
-    link = $(this).find('a')
-    if link.length > 0
-      $(this).data('url', link.attr('href'))
-      $(this).html(link.text())
