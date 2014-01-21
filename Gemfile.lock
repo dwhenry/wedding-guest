@@ -141,6 +141,7 @@ GEM
     rake (10.1.0)
     rdoc (3.12.2)
       json (~> 1.4)
+    recaptcha (0.3.6)
     redis (2.2.2)
     redis-actionpack (3.2.3)
       actionpack (~> 3.2.3)
@@ -232,6 +233,7 @@ DEPENDENCIES
   pry
   pry-nav
   rails
+  recaptcha
   redis
   redis-rails
   rmagick

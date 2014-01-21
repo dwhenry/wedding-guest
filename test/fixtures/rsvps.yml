@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  wedding: 
+  name: MyString
+  email: MyString
+  attendance: 
+  dietary: MyString
+  message: MyString
+  linked: 
+
+two:
+  wedding: 
+  name: MyString
+  email: MyString
+  attendance: 
+  dietary: MyString
+  message: MyString
+  linked: 

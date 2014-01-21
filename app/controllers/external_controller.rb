@@ -2,9 +2,9 @@ class ExternalController < ApplicationController
   caches_action :show,
     cache_path: ->(controller) do
       if params[:name].nil?
-        external_url(params.slice(:wedding_name).merge(name: 'home'))
+        external_url(params.slice(:wedding_name).merge(name: 'home', for: Date.today))
       else
-        external_url(params.slice(:wedding_name, :name))
+        external_url(params.slice(:wedding_name, :name).merge(for: Date.today))
       end
     end
 
@@ -15,6 +15,11 @@ class ExternalController < ApplicationController
     else
       @name = params[:name] || 'home'
     end
+  end
+
+  def rsvp
+    @wedding = Wedding.find_by_param_name(params[:wedding_name])
+    @rsvp = Rsvp.new(wedding: @wedding)
   end
 
   def index

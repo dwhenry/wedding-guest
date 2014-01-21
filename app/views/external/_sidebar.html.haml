@@ -11,6 +11,6 @@
 
   %h3 Organisation
   %ul
-    %li= link_to 'RSVP Online', external_path(@wedding.param_name, name: :'|rsvp|_online' )
+    %li= link_to 'RSVP Online', rsvp_external_path(@wedding.param_name)
     %li= link_to 'Gift List', external_path(@wedding.param_name, name: :gift_list )
     %li= link_to 'Where To Stay', external_path(@wedding.param_name, name: :where_to_stay )

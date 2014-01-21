@@ -1,0 +1,33 @@
+- content_for :head do
+  == #{@wedding.name}'s
+  Wedding
+  .countdown
+    == #{@wedding.on} - #{countdown(@wedding.raw_on)}
+- content_for :buttons do
+  - if current_user
+    = link_to :edit, edit_wedding_path(@wedding)
+    |
+    = link_to :weddings, weddings_path
+- content_for :external do
+  = link_to 'Create Your our Wedding Website', root_path
+
+= render :partial => 'external/sidebar'
+
+.TITLE RSVP Online
+
+= form_for @rsvp do |f|
+  = f.hidden_field :wedding_id
+
+  = labeled_text_field_with_error f, :name, :label => 'Your name'
+  = labeled_text_field_with_error f, :email, :label => 'Email address', style: 'width: 500px'
+
+  = labeled_options_with_error f, :attendance, :label => 'I am:', values: { true => 'able to attend.', false => 'not able to attend.' }
+
+  =# behalf of
+
+  = labeled_text_field_with_error f, :dietary, :label => 'Special requiremens (dietary / other)'
+  = labeled_text_area_with_error f, :message, :label => 'Message to David and Maddy'
+
+  = recaptcha_with_errors f, display: {theme: 'clean'}
+
+  = f.submit 'Send RSVP', :id => 'rsvp'

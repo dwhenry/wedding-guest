@@ -15,6 +15,7 @@ gem 'unicorn'
 gem 'newrelic_rpm'
 gem 'redis'
 gem 'redis-rails'
+gem "recaptcha", :require => "recaptcha/rails"
 
 group :production do
   gem 'cloudinary'

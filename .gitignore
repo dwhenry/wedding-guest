@@ -17,3 +17,5 @@ logfile
 /public/uploads/**/*
 
 config/database.yml
+
+config/initializers/recaptcha.rb
