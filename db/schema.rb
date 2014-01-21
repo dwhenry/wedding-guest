@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140120225209) do
+ActiveRecord::Schema.define(:version => 20140121205011) do
 
   create_table "addresses", :force => true do |t|
     t.integer  "wedding_id"
@@ -91,8 +91,9 @@ ActiveRecord::Schema.define(:version => 20140120225209) do
     t.string   "dietary"
     t.string   "message"
     t.integer  "linked_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+    t.boolean  "bus_required"
   end
 
   add_index "rsvps", ["linked_id"], :name => "index_rsvps_on_linked_id"
