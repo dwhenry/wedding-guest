@@ -13,5 +13,7 @@
           %li= link_to 'Timetable', wedding_detail_path(@wedding, id: :timetable)
           %li= link_to 'Directions', wedding_detail_path(@wedding, id: :directions)
           %li= link_to 'The Day After', wedding_detail_path(@wedding, id: :the_day_after)
+        %ul
+          %li= link_to 'Gift List', wedding_detail_path(@wedding, id: :gift_list )
           %li= link_to 'Where To Stay', wedding_detail_path(@wedding, id: :where_to_stay )
     %li= link_to 'Terms & Conditions', terms_and_conditions_wedding_path(@wedding)

@@ -1,15 +1,22 @@
 class WeddingsController < ApplicationController
+  before_filter :authenticate_user!, except: [:index]
   layout 'sidebar'
-  def index
-    @weddings = current_user.weddings.where("guests.status = 'Confirmed'")
 
-    if @weddings.size == 1
-      redirect_to wedding_path(@weddings.first)
-    else
-      respond_to do |format|
-        format.html { render :index, :layout => 'full_width' }
-        format.json { render :json => @weddings.map{|w| w.details.merge('url' => wedding_path(w)) } }
+  def index
+    if current_user && !params[:show_all]
+      @weddings = current_user.weddings.where("guests.status = 'Confirmed'")
+
+      if @weddings.size == 1
+        redirect_to wedding_path(@weddings.first)
+        return
       end
+    else
+      @weddings = Wedding.all
+    end
+
+    respond_to do |format|
+      format.html { render :index }
+      format.json { render :json => @weddings.map{|w| w.details.merge('url' => wedding_path(w)) } }
     end
   end
 

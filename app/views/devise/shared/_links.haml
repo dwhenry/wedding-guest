@@ -24,4 +24,4 @@
       %ol
         = link_to "Sign in with #{provider.to_s.titleize}", omniauth_authorize_path(resource_name, provider)
   %ol
-    = link_to "Browse", external_index_path(resource_name)
+    = link_to "Browse", external_index_path

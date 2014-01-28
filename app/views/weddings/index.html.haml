@@ -2,7 +2,15 @@
   Weddings
 
 - content_for :buttons do
-  = link_to 'Create New Wedding', new_wedding_path
+  - if current_user
+    = link_to 'Create New Wedding', new_wedding_path
+    |
+    = link_to 'Show all', weddings_path(show_all: true)
+
+- content_for :sidebar do
+  - if current_user.blank?
+    .double_space
+      = render "devise/shared/links", resource_name: 'user', devise_mapping: Devise::Mapping.find_by_path!(new_user_session_path, :path)
 
 %table
   %thead

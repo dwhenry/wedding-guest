@@ -23,7 +23,7 @@ class ExternalController < ApplicationController
   end
 
   def index
-    render :index, layout: 'full_width'
+    render :index
   end
 
 protected
