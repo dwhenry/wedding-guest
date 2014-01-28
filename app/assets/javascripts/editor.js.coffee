@@ -1,10 +1,10 @@
 $ ->
   text_for = (el)->
     string = ''
-    data = $(el).parents('.container').find('p')
-    data.each (i, str)->
-      string += "\n" + $(str).text().trim()
-    string.trim()
+    $(el)
+    .parents('.container')
+    .find('.text_container')
+    .data('text')
 
   $('#editor .edit a').click (event)->
     $('.cover').show()
