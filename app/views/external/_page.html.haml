@@ -19,7 +19,7 @@
       - if element.image?
         .element_image{:class => cycle('odd', 'even')}
           = image_tag(element.sized_url)
-      .text_container{data: {text: element.text}}
+      .text_container{data: {text: (@editor ? element.text : nil}}
         - element.each_text_element do |text|
           %p
             = text_writer(text)
