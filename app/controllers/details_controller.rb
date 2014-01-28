@@ -19,7 +19,8 @@ public
 
   def show
     @wedding = Wedding.find(params[:wedding_id])
-    @details = Detail.where(page_name: params[:id]).first || raise("Invalid page: #{params[:id]}")
+    @details = Detail.where(page_name: params[:id]).first ||
+      redirect_to(new_wedding_detail_path(wedding_id: @wedding.id, page_name: params[:id]))
   end
 
   def sort
@@ -45,7 +46,7 @@ public
   # GET /texts/new.json
   def new
     @wedding = Wedding.find(params[:wedding_id])
-    @detail = Detail.new(:wedding_id => @wedding.id)
+    @detail = Detail.new(wedding_id: @wedding.id, page_name: params[:page_name])
 
     respond_to do |format|
       format.html # new.html.erb
