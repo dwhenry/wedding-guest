@@ -42,14 +42,28 @@ class Detail < ActiveRecord::Base
   end
 
   def move_to(position)
-    move_to = wedding.page_details.for(raw_page_name)[position]
-    move_to_position = move_to.order
-    current_position = self.order
-
     Detail.transaction do
-      move_to.update_attributes(order: -1)
-      update_attributes(order: position)
-      move_to.update_attributes(order: current_position)
+      if current_position == position
+        return # do nothing
+      elsif current_position < position
+        # move down
+        update_attribute(order: -1)
+        details = wedding.page_details.for(raw_page_name)
+        to_be_changed = .select {|d| (current_positon..position).include?(d.order) }.sort_by(&:order)
+        to_be_changed.each do |to_change|
+          to_change.update_attributes(order: to_change.order - 1)
+        end
+        update_attribute(order: position)
+      else
+        # move up
+        update_attribute(order: -1)
+        details = wedding.page_details.for(raw_page_name)
+        to_be_changed = .select {|d| (position..current_positon).include?(d.order) }.sort_by(&:order).reverse
+        to_be_changed.each do |to_change|
+          to_change.update_attributes(order: to_change.order + 1)
+        end
+        update_attribute(order: position)
+      end
     end
   end
 

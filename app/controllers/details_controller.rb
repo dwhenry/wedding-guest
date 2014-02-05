@@ -10,6 +10,7 @@ private
 public
 
   def set
+    expire_external_cache
     wedding = Wedding.find(params[:wedding_id])
     detail = Detail.find(params[:id])
 
@@ -24,6 +25,7 @@ public
   end
 
   def sort
+    expire_external_cache
     wedding = Wedding.find(params[:wedding_id])
     detail = Detail.find(params[:id])
 
