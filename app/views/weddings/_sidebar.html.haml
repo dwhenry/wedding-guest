@@ -2,7 +2,7 @@
   %ul
     %li= link_to 'Details', wedding_path(@wedding)
     %li= link_to 'Guests', wedding_guests_path(@wedding)
-    %li= link_to 'Addresses', wedding_addresses_path(@wedding)
+    %li= link_to 'RSVPs', wedding_addresses_path(@wedding)
     - if @wedding.owner?(current_user)
       %li{data: {match: '(/[^/]*|)$'}, class: :external}
         = link_to 'External Texts', wedding_details_path(@wedding)

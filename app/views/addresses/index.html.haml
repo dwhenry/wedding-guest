@@ -1,5 +1,3 @@
-= javascript_include_tag "address"
-
 - content_for :head do
   == #{@wedding.name.titlecase}'s
   Wedding
@@ -8,8 +6,8 @@
 
 = render :partial => 'weddings/sidebar'
 
-- @addresses.each do |address|
-  = render :partial => 'show', :locals => {:address => address}
+- @rsvps.each do |rsvp|
+  = render :partial => 'show', :locals => {:rsvp => rsvp}
 
 #new_address
   .title

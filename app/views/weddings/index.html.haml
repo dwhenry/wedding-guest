@@ -23,7 +23,7 @@
 
   %tbody
     - @weddings.each do |wedding|
-      %tr{:'data-url' => wedding_path(wedding)}
+      %tr{:'data-url' => (current_user ? wedding_path(wedding) : external_url(:wedding_name => wedding.param_name)))}
         %td= wedding.name
         %td= wedding.bride
         %td= wedding.groom
