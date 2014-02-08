@@ -1,3 +1,8 @@
 %tr
   %td= rsvp.name
   %td= rsvp.email
+  %td= rsvp.attendance ? 'Yes' : 'No'
+  %td= rsvp.bus_required ? 'Yes' : 'No'
+  %td= rsvp.dietary
+%tr
+  %td{colspan: 5}= rvsp.message
