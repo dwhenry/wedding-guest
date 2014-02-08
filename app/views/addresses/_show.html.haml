@@ -1,8 +1,8 @@
 %tr
-  %td= rsvp.name
-  %td= rsvp.email
-  %td= rsvp.attendance ? 'Yes' : 'No'
-  %td= rsvp.bus_required ? 'Yes' : 'No'
-  %td= rsvp.dietary
+  %td.name= rsvp.name
+  %td.email= rsvp.email
+  %td.attendance= rsvp.attendance ? 'Yes' : 'No'
+  %td.bus_required= rsvp.bus_required ? 'Yes' : 'No'
+  %td.dietary= rsvp.dietary
 %tr
-  %td{colspan: 5}= rsvp.message
+  %td.comment{colspan: 5}= rsvp.message

@@ -9,12 +9,11 @@
 %table
   %thead
     %tr
-      %td Name
-      %td Email
-      %td Attend
-      %td Bus
-      %td Dietary
+      %td.name Name
+      %td.email Email
+      %td.attendance Attend
+      %td.bus_required Bus
+      %td.dietary Dietary
   %tbody
     - @rsvps.each do |rsvp|
       = render :partial => 'show', :locals => {:rsvp => rsvp}
-

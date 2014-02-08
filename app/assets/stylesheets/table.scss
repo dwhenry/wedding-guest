@@ -16,6 +16,13 @@ table {
     padding: 5px;
   }
 
+  @media all and (max-width: 760px) {
+    .email { display: none }
+  }
+  @media all and (max-width: 600px) {
+    font-size: 0.7em;
+  }
+
   td {
     border: 1px solid $darkest;
   }
