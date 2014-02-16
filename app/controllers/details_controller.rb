@@ -10,12 +10,12 @@ private
 public
 
   def set
+    @wedding = Wedding.find(params[:wedding_id])
+    @detail = Detail.find(params[:id])
     expire_external_cache
-    wedding = Wedding.find(params[:wedding_id])
-    detail = Detail.find(params[:id])
 
-    detail.update_attributes!(params[:attrs])
-    redirect_to wedding_detail_path(wedding, detail.raw_page_name)
+    @detail.update_attributes!(params[:attrs])
+    redirect_to wedding_detail_path(@wedding, @detail.raw_page_name)
   end
 
   def show
@@ -25,11 +25,11 @@ public
   end
 
   def sort
+    @wedding = Wedding.find(params[:wedding_id])
+    @detail = Detail.find(params[:id])
     expire_external_cache
-    wedding = Wedding.find(params[:wedding_id])
-    detail = Detail.find(params[:id])
 
-    render json: { success: detail.move_to(params[:position].to_i) }
+    render json: { success: @detail.move_to(params[:position].to_i) }
   end
 
   # GET /texts
