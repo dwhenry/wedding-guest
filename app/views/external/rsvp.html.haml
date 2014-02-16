@@ -22,9 +22,7 @@
   = labeled_text_field_with_error f, :email, :label => 'Email address', style: 'width: 500px'
 
   = labeled_options_with_error f, :attendance, :label => 'I/We:', values: { true => 'accept with pleasure.', false => 'decline with regret.' }
-  = labeled_check_box_with_error f, :bus_required, :label => 'I/We require transport from the church to the reception.'
-
-  =# behalf of
+  = labeled_check_box_with_error f, :bus_required, :label => "I/We require transport from the church to the reception (#{51 - @wedding.rsvps.on_bus.count} seats remaining)."
 
   = labeled_text_field_with_error f, :dietary, :label => 'Special requiremens (dietary / other)'
   = labeled_text_area_with_error f, :message, :label => 'Message to David and Maddy'
