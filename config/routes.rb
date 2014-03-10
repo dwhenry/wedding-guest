@@ -34,7 +34,8 @@ WeddingGuest::Application.routes.draw do
 
   match 'external' => 'external#index', :as => :external_index
   resources :rsvps, only: :create
-  match ':wedding_name/rvsp_online' => 'external#rsvp', :as => :rsvp_external
+  match ':wedding_name/rsvp_online' => 'external#rsvp', :as => :rsvp_external
+  match ':wedding_name/rsvp_evening' => 'external#rsvp_evening', :as => :rsvp_evening_external
   match ':wedding_name(/:name)' => 'external#show', :as => :external
 
   # The priority is based upon order of creation:

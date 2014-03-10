@@ -6,6 +6,7 @@
 
 = render :partial => 'weddings/sidebar'
 
+.TITLE Wedding
 %table
   %thead
     %tr
@@ -16,4 +17,18 @@
       %td.dietary Dietary
   %tbody
     - @rsvps.each do |rsvp|
+      = render :partial => 'show', :locals => {:rsvp => rsvp}
+
+%br
+.TITLE Evening
+%table
+  %thead
+    %tr
+      %td.name Name
+      %td.email Email
+      %td.attendance Attend
+      %td.bus_required Bus
+      %td.dietary Dietary
+  %tbody
+    - @rsvp_evenings.each do |rsvp|
       = render :partial => 'show', :locals => {:rsvp => rsvp}

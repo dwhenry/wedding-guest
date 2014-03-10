@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140121205011) do
+ActiveRecord::Schema.define(:version => 20140310223443) do
 
   create_table "addresses", :force => true do |t|
     t.integer  "wedding_id"
@@ -30,9 +30,9 @@ ActiveRecord::Schema.define(:version => 20140121205011) do
   create_table "details", :force => true do |t|
     t.integer  "wedding_id"
     t.text     "text"
+    t.string   "image"
     t.datetime "created_at",       :null => false
     t.datetime "updated_at",       :null => false
-    t.string   "image"
     t.string   "page_name"
     t.integer  "order"
     t.string   "formatting_class"
@@ -54,8 +54,8 @@ ActiveRecord::Schema.define(:version => 20140121205011) do
   create_table "guest_lists", :force => true do |t|
     t.string   "name"
     t.integer  "wedding_id"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.string   "description"
   end
 
@@ -65,8 +65,8 @@ ActiveRecord::Schema.define(:version => 20140121205011) do
     t.integer  "user_id"
     t.integer  "guest_id"
     t.integer  "list_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "guests", :force => true do |t|
@@ -75,8 +75,8 @@ ActiveRecord::Schema.define(:version => 20140121205011) do
     t.string   "email"
     t.string   "status"
     t.integer  "wedding_id"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.integer  "seats"
     t.integer  "guest_list_id"
   end
@@ -91,9 +91,10 @@ ActiveRecord::Schema.define(:version => 20140121205011) do
     t.string   "dietary"
     t.string   "message"
     t.integer  "linked_id"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
+    t.datetime "created_at",                      :null => false
+    t.datetime "updated_at",                      :null => false
     t.boolean  "bus_required"
+    t.boolean  "evening",      :default => false
   end
 
   add_index "rsvps", ["linked_id"], :name => "index_rsvps_on_linked_id"
@@ -111,8 +112,8 @@ ActiveRecord::Schema.define(:version => 20140121205011) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
-    t.datetime "created_at",                             :null => false
-    t.datetime "updated_at",                             :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.string   "authentication_token"
   end
 
@@ -123,8 +124,8 @@ ActiveRecord::Schema.define(:version => 20140121205011) do
     t.string   "bride"
     t.string   "groom"
     t.date     "on"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.string   "image"
     t.string   "name"
     t.string   "groom_email"

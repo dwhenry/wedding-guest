@@ -22,6 +22,11 @@ class ExternalController < ApplicationController
     @rsvp = Rsvp.new(wedding: @wedding)
   end
 
+  def rsvp_evening
+    @wedding = Wedding.find_by_param_name(params[:wedding_name])
+    @rsvp = Rsvp.new(wedding: @wedding, evening: true)
+  end
+
   def index
     render :index
   end

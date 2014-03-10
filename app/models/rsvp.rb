@@ -1,5 +1,5 @@
 class Rsvp < ActiveRecord::Base
-  attr_accessible :attendance, :dietary, :email, :linked, :message, :name, :wedding_id, :wedding, :bus_required
+  attr_accessible :attendance, :dietary, :email, :linked, :message, :name, :wedding_id, :wedding, :bus_required, :evening
 
   belongs_to :wedding
   validates :wedding_id, presence: true
